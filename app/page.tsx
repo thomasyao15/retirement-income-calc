@@ -1,5 +1,7 @@
 import Navbar from "@/components/calculator/Navbar"
 import ProgressBar from "@/components/calculator/ProgressBar"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
@@ -14,10 +16,18 @@ export default function Home() {
             <h1 className="text-3xl font-bold text-foreground mb-4">
               Retirement Income Calculator
             </h1>
-            <p className="text-lg text-muted-foreground text-center max-w-2xl">
+            <p className="text-lg text-muted-foreground text-center max-w-2xl mb-8">
               Welcome to Australian Super's Retirement Income Calculator.
               Let's plan your financial future together.
             </p>
+            <Link href="/calculator">
+              <Button
+                size="lg"
+                className="text-xl px-8 py-6 h-auto rounded-full bg-primary hover:bg-primary/90"
+              >
+                Start Calculator
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
