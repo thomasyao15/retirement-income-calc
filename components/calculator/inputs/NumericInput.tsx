@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { scaleVariants } from "@/styles/animations/variants"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { scaleVariants } from "@/styles/animations/variants";
 
 interface NumericInputProps {
-  value?: number
-  onChange: (value: number | undefined) => void
-  min?: number
-  max?: number
-  placeholder?: string
-  label?: string
-  helperText?: string
-  error?: string
-  autoFocus?: boolean
+  value?: number;
+  onChange: (value: number | undefined) => void;
+  min?: number;
+  max?: number;
+  placeholder?: string;
+  label?: string;
+  helperText?: string;
+  error?: string;
+  autoFocus?: boolean;
 }
 
 export default function NumericInput({
@@ -25,42 +25,42 @@ export default function NumericInput({
   label,
   helperText,
   error,
-  autoFocus = true
+  autoFocus = true,
 }: NumericInputProps) {
-  const [inputValue, setInputValue] = useState(value?.toString() || "")
-  const [isFocused, setIsFocused] = useState(false)
+  const [inputValue, setInputValue] = useState(value?.toString() || "");
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
-    setInputValue(value?.toString() || "")
-  }, [value])
+    setInputValue(value?.toString() || "");
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
+    const val = e.target.value;
 
     // Allow empty string
     if (val === "") {
-      setInputValue("")
-      onChange(undefined)
-      return
+      setInputValue("");
+      onChange(undefined);
+      return;
     }
 
     // Only allow numbers
     if (!/^\d*$/.test(val)) {
-      return
+      return;
     }
 
-    const numVal = parseInt(val, 10)
+    const numVal = parseInt(val, 10);
 
     // Check bounds
-    if (min !== undefined && numVal < min) return
-    if (max !== undefined && numVal > max) return
+    if (min !== undefined && numVal < min) return;
+    if (max !== undefined && numVal > max) return;
 
-    setInputValue(val)
-    onChange(numVal)
-  }
+    setInputValue(val);
+    onChange(numVal);
+  };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-md">
       {label && (
         <label className="block text-lg font-medium text-foreground mb-3">
           {label}
@@ -121,11 +121,7 @@ export default function NumericInput({
       </motion.div>
 
       {/* Error message only */}
-      {error && (
-        <p className="mt-3 text-base text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-3 text-base text-destructive">{error}</p>}
     </div>
-  )
+  );
 }

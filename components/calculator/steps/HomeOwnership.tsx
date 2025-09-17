@@ -16,10 +16,7 @@ export default function HomeOwnership() {
     >
       <YesNoChoice
         value={ownsHome}
-        onChange={(value) => {
-          setOwnsHome(value)
-          setTimeout(() => nextStep(), 500)
-        }}
+        onChange={setOwnsHome}
       />
     </QuestionLayout>
   )

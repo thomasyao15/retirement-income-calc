@@ -10,10 +10,10 @@ export default function RelationshipStatus() {
   const [status, setStatus] = useState<string>()
 
   const options = [
-    { value: "single", label: "Single", color: "bg-blue-500" },
-    { value: "married", label: "Married", color: "bg-pink-500" },
-    { value: "defacto", label: "De Facto", color: "bg-purple-500" },
-    { value: "divorced", label: "Divorced", color: "bg-orange-500" }
+    { value: "single", label: "Single" },
+    { value: "married", label: "Married" },
+    { value: "defacto", label: "De Facto" },
+    { value: "divorced", label: "Divorced" }
   ]
 
   return (
@@ -24,10 +24,7 @@ export default function RelationshipStatus() {
       <MultipleChoice
         options={options}
         value={status}
-        onChange={(value) => {
-          setStatus(value)
-          setTimeout(() => nextStep(), 500)
-        }}
+        onChange={setStatus}
         columns={2}
       />
     </QuestionLayout>

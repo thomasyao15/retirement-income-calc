@@ -1,102 +1,77 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Check, X } from "lucide-react"
+import { motion } from "framer-motion";
 
 interface YesNoChoiceProps {
-  value?: boolean
-  onChange: (value: boolean) => void
+  value?: boolean;
+  onChange: (value: boolean) => void;
 }
 
 export default function YesNoChoice({ value, onChange }: YesNoChoiceProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
       <motion.button
         onClick={() => onChange(true)}
         className={`
-          relative overflow-hidden rounded-3xl p-12 md:p-16
-          min-h-[250px] md:min-h-[300px]
-          flex flex-col items-center justify-center gap-6
-          text-white font-bold
+          relative overflow-hidden rounded-3xl px-24 md:px-32 py-12 md:py-16
+          min-h-[200px] md:min-h-[280px]
+          min-w-[320px] md:min-w-[420px]
+          flex items-center justify-center
+          bg-white
+          font-bold
           transition-all duration-300 transform
-          bg-green-500
-          ${value === true
-            ? "ring-8 ring-white ring-offset-8 ring-offset-background scale-105"
-            : "hover:scale-105 active:scale-95"
+          ${
+            value === true
+              ? "border-8 border-[var(--as-grenadier)] text-[var(--as-grenadier)] scale-105"
+              : "border-4 border-[var(--as-grenadier)] text-[var(--as-grenadier)] hover:scale-105 active:scale-95 hover:border-8"
           }
-          shadow-2xl hover:shadow-3xl
         `}
-        whileHover={{ y: -4 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
           duration: 0.3,
           type: "spring",
           stiffness: 200,
-          damping: 20
+          damping: 20,
         }}
       >
-        <Check className="w-20 h-20 md:w-24 md:h-24" strokeWidth={3} />
-        <span className="text-4xl md:text-5xl lg:text-6xl">
+        <span className="text-5xl md:text-6xl lg:text-7xl tracking-wide">
           Yes
         </span>
-
-        {value === true && (
-          <motion.div
-            className="absolute inset-0 bg-white/30"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        )}
-
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
       </motion.button>
 
       <motion.button
         onClick={() => onChange(false)}
         className={`
-          relative overflow-hidden rounded-3xl p-12 md:p-16
-          min-h-[250px] md:min-h-[300px]
-          flex flex-col items-center justify-center gap-6
-          text-white font-bold
+          relative overflow-hidden rounded-3xl px-24 md:px-32 py-12 md:py-16
+          min-h-[200px] md:min-h-[280px]
+          min-w-[320px] md:min-w-[420px]
+          flex items-center justify-center
+          bg-white
+          font-bold
           transition-all duration-300 transform
-          bg-red-500
-          ${value === false
-            ? "ring-8 ring-white ring-offset-8 ring-offset-background scale-105"
-            : "hover:scale-105 active:scale-95"
+          ${
+            value === false
+              ? "border-8 border-[var(--as-tolopea)] text-[var(--as-tolopea)] scale-105"
+              : "border-4 border-[var(--as-tolopea)] text-[var(--as-tolopea)] hover:scale-105 active:scale-95 hover:border-8"
           }
-          shadow-2xl hover:shadow-3xl
         `}
-        whileHover={{ y: -4 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
           duration: 0.3,
           delay: 0.1,
           type: "spring",
           stiffness: 200,
-          damping: 20
+          damping: 20,
         }}
       >
-        <X className="w-20 h-20 md:w-24 md:h-24" strokeWidth={3} />
-        <span className="text-4xl md:text-5xl lg:text-6xl">
+        <span className="text-5xl md:text-6xl lg:text-7xl tracking-wide">
           No
         </span>
-
-        {value === false && (
-          <motion.div
-            className="absolute inset-0 bg-white/30"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        )}
-
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
       </motion.button>
     </div>
-  )
+  );
 }

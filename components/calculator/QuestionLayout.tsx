@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
 interface QuestionLayoutProps {
-  question: string
-  subtitle?: string
-  children: React.ReactNode
+  question: string;
+  subtitle?: string;
+  children: React.ReactNode;
 }
 
 export default function QuestionLayout({
   question,
   subtitle,
-  children
+  children,
 }: QuestionLayoutProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
@@ -20,16 +20,12 @@ export default function QuestionLayout({
         </h1>
 
         {subtitle && (
-          <p className="text-xl text-muted-foreground">
-            {subtitle}
-          </p>
+          <p className="text-xl text-muted-foreground">{subtitle}</p>
         )}
       </div>
 
       {/* Input Section */}
-      <div className="w-full max-w-md">
-        {children}
-      </div>
+      <div className="w-full max-w-4xl flex justify-center">{children}</div>
     </div>
-  )
+  );
 }
