@@ -1,30 +1,25 @@
-"use client"
+"use client";
 
-import { useWizard } from "react-use-wizard"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft } from "lucide-react"
-import { motion } from "framer-motion"
+import { useWizard } from "react-use-wizard";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface WizardFooterProps {
-  onNext?: () => Promise<boolean> | boolean
+  onNext?: () => Promise<boolean> | boolean;
 }
 
 export default function WizardFooter({ onNext }: WizardFooterProps) {
-  const {
-    previousStep,
-    nextStep,
-    isFirstStep,
-    isLastStep
-  } = useWizard()
+  const { previousStep, nextStep, isFirstStep, isLastStep } = useWizard();
 
   const handleNext = async () => {
     // If custom onNext is provided, call it first
     if (onNext) {
-      const canProceed = await onNext()
-      if (!canProceed) return
+      const canProceed = await onNext();
+      if (!canProceed) return;
     }
-    nextStep()
-  }
+    nextStep();
+  };
 
   return (
     <motion.footer
@@ -33,7 +28,7 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
       animate={{ y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="mx-auto px-4 py-6">
         <div className="relative flex items-center justify-center">
           {/* Previous Button - Left side */}
           {!isFirstStep && (
@@ -66,5 +61,5 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
         </div>
       </div>
     </motion.footer>
-  )
+  );
 }
