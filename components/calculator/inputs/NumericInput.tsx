@@ -51,12 +51,24 @@ export default function NumericInput({
 
     const numVal = parseInt(val, 10);
 
-    // Check bounds
-    if (min !== undefined && numVal < min) return;
+    // Allow typing intermediate values, only prevent values above max
     if (max !== undefined && numVal > max) return;
 
     setInputValue(val);
     onChange(numVal);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+
+    // Validate min value on blur
+    if (inputValue && min !== undefined) {
+      const numVal = parseInt(inputValue, 10);
+      if (numVal < min) {
+        setInputValue(min.toString());
+        onChange(min);
+      }
+    }
   };
 
   return (
@@ -81,7 +93,7 @@ export default function NumericInput({
           value={inputValue}
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={handleBlur}
           placeholder={placeholder}
           autoFocus={autoFocus}
           className={`

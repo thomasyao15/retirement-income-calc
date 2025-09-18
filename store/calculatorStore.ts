@@ -2,12 +2,23 @@ import { create } from 'zustand'
 
 interface PersonalInfo {
   age?: number
+  gender?: 'male' | 'female' | 'other'
+  retirementAge?: number
   retirementYears?: number
+  expectedLongevity?: number
   superBalance?: number
   relationshipStatus?: string
 }
 
 interface Assets {
+  hasBankMoney?: boolean
+  bankMoneyAmount?: number
+  hasShares?: boolean
+  sharesValue?: number
+  hasInvestmentProperty?: boolean
+  investmentPropertyValue?: number
+  hasIncomeStreams?: boolean
+  incomeStreamsAmount?: number
   ownsStocks?: boolean
   stockValue?: number
   stockDividends?: number
@@ -18,13 +29,20 @@ interface Assets {
 interface PensionData {
   homeOwnership?: string
   otherAssets?: number
+  combinedIncome?: number
   incomeStreams?: number
 }
 
 interface Calculations {
   estimatedPension?: number
-  recommendedPreMix?: string
+  pensionEligibility?: 'not-eligible' | 'partial' | 'full'
+  recommendedPreMix?: 'A' | 'B' | 'C' | 'D'
   projectedIncome?: number
+  lifetimeIncome?: number
+  choiceIncome?: number
+  totalRetirementIncome?: number
+  safetyNetAmount?: number
+  incomeIncreaseWithAS?: number
 }
 
 interface CalculatorState {

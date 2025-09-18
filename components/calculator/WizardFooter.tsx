@@ -10,7 +10,7 @@ interface WizardFooterProps {
 }
 
 export default function WizardFooter({ onNext }: WizardFooterProps) {
-  const { previousStep, nextStep, isFirstStep, isLastStep } = useWizard();
+  const { previousStep, nextStep, isFirstStep, isLastStep, activeStep, stepCount } = useWizard();
 
   const handleNext = async () => {
     // If custom onNext is provided, call it first
@@ -21,8 +21,20 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
     nextStep();
   };
 
+  // Calculate progress percentage
+  const progress = Math.min(100, Math.round(((activeStep + 1) / stepCount) * 100));
+
   return (
-    <motion.footer
+    <>
+      {/* Progress bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-100 h-2 z-50">
+        <div
+          className="h-full bg-primary transition-all duration-500 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      <motion.footer
       className="fixed bottom-2 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
@@ -61,5 +73,6 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
         </div>
       </div>
     </motion.footer>
+    </>
   );
 }
