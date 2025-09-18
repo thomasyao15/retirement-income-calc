@@ -45,7 +45,7 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Here's your retirement income
+          Here's your total retirement income
         </motion.h1>
 
         <motion.p
@@ -58,14 +58,14 @@ export default function FinalIncomeDisplay() {
         </motion.p>
 
         <motion.div
-          className="py-12"
+          className="py-4"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <p className="text-lg text-muted-foreground mb-4">
+          {/* <p className="text-lg text-muted-foreground mb-4">
             Your total annual retirement income
-          </p>
+          </p> */}
           <AnimatedCounter
             value={calculations.totalRetirementIncome || 0}
             delay={1000}
