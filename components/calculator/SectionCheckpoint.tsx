@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Check } from "lucide-react"
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 
 interface SectionCheckpointProps {
-  currentSection: 1 | 2 | 3
-  title: string
-  subtitle: string
-  content: string
+  currentSection: 1 | 2 | 3;
+  title: string;
+  subtitle: string;
+  content: string;
 }
 
 export default function SectionCheckpoint({
   currentSection,
   title,
   subtitle,
-  content
+  content,
 }: SectionCheckpointProps) {
   const sections = [
     { number: 1, label: "Personal Info" },
     { number: 2, label: "Age Pension" },
-    { number: 3, label: "Pre-Mix" }
-  ]
+    { number: 3, label: "Pre-Mix" },
+  ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
@@ -58,7 +58,9 @@ export default function SectionCheckpoint({
             <div key={section.number} className="flex items-center">
               <motion.div
                 className={`flex flex-col items-center ${
-                  section.number <= currentSection ? 'opacity-100' : 'opacity-40'
+                  section.number <= currentSection
+                    ? "opacity-100"
+                    : "opacity-70"
                 }`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -66,33 +68,41 @@ export default function SectionCheckpoint({
               >
                 <div
                   className={`w-16 h-16 rounded-full flex items-center justify-center border-4 ${
-                    section.number < currentSection
-                      ? 'bg-primary border-primary'
-                      : section.number === currentSection
-                      ? 'bg-primary/20 border-primary animate-pulse'
-                      : 'bg-muted border-muted'
+                    section.number <= currentSection
+                      ? "bg-primary border-primary"
+                      : section.number === currentSection + 1
+                      ? "bg-primary/20 border-primary animate-pulse"
+                      : "bg-muted border-muted"
                   }`}
                 >
-                  {section.number < currentSection ? (
+                  {section.number <= currentSection ? (
                     <Check className="w-8 h-8 text-white" />
                   ) : (
-                    <span className={`text-xl font-bold ${
-                      section.number === currentSection ? 'text-primary' : 'text-muted-foreground'
-                    }`}>
+                    <span
+                      className={`text-xl font-bold ${
+                        section.number === currentSection + 1
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      }`}
+                    >
                       {section.number}
                     </span>
                   )}
                 </div>
-                <p className={`mt-2 text-sm font-medium ${
-                  section.number <= currentSection ? 'text-foreground' : 'text-muted-foreground'
-                }`}>
+                <p
+                  className={`mt-2 text-sm font-medium ${
+                    section.number <= currentSection
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
                   {section.label}
                 </p>
               </motion.div>
               {index < sections.length - 1 && (
                 <div
-                  className={`w-24 h-1 mx-2 ${
-                    section.number < currentSection ? 'bg-primary' : 'bg-muted'
+                  className={`w-24 h-1 mx-2 mb-5 ${
+                    section.number <= currentSection ? "bg-primary" : "bg-muted"
                   }`}
                 />
               )}
@@ -109,7 +119,7 @@ export default function SectionCheckpoint({
           {content}
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           className="mt-12 p-8 bg-primary/10 border-4 border-primary rounded-3xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -118,8 +128,8 @@ export default function SectionCheckpoint({
           <p className="text-3xl md:text-4xl font-bold text-primary">
             Section {currentSection} of 3 Complete ✓
           </p>
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </div>
-  )
+  );
 }
