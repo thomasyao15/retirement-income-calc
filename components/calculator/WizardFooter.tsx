@@ -10,7 +10,14 @@ interface WizardFooterProps {
 }
 
 export default function WizardFooter({ onNext }: WizardFooterProps) {
-  const { previousStep, nextStep, isFirstStep, isLastStep, activeStep, stepCount } = useWizard();
+  const {
+    previousStep,
+    nextStep,
+    isFirstStep,
+    isLastStep,
+    activeStep,
+    stepCount,
+  } = useWizard();
 
   const handleNext = async () => {
     // If custom onNext is provided, call it first
@@ -22,42 +29,49 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
   };
 
   // Calculate progress percentage
-  const progress = Math.min(100, Math.round(((activeStep + 1) / stepCount) * 100));
+  const progress = Math.min(
+    100,
+    Math.round(((activeStep + 1) / stepCount) * 100)
+  );
+
+  // Debug logging to see what values we're getting
+  console.log("Progress debug:", { activeStep, stepCount, progress });
 
   return (
     <>
-      {/* Progress bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-100 h-2 z-50">
-        <div
-          className="h-full bg-primary transition-all duration-500 ease-out"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
       <motion.footer
-      className="fixed bottom-2 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200"
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
-      <div className="mx-auto px-4 py-6">
-        <div className="relative flex items-center justify-center">
-          {/* Previous Button - Left side */}
-          {!isFirstStep && (
-            <button
-              onClick={previousStep}
-              className="absolute left-0 p-3 rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Previous step"
-            >
-              <ChevronLeft className="h-8 w-8 text-foreground" />
-            </button>
-          )}
+        className="fixed bottom-2 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200"
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        {/* Progress bar at top of footer */}
+        <div className="absolute top-0 left-0 right-0 bg-gray-100 h-2 -translate-y-full">
+          <motion.div
+            className="h-full bg-primary"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
+        </div>
+        <div className="mx-auto px-4 pb-6 pt-8">
+          <div className="relative flex items-center justify-center">
+            {/* Previous Button - Left side */}
+            {!isFirstStep && (
+              <button
+                onClick={previousStep}
+                className="absolute left-0 p-3 rounded-full hover:bg-gray-100 transition-colors"
+                aria-label="Previous step"
+              >
+                <ChevronLeft className="h-8 w-8 text-foreground" />
+              </button>
+            )}
 
-          {/* Next/Submit Button - Center */}
-          <Button
-            onClick={handleNext}
-            size="lg"
-            className={`
+            {/* Next/Submit Button - Center */}
+            <Button
+              onClick={handleNext}
+              size="lg"
+              className={`
               min-w-[160px] h-14 md:h-16
               text-lg md:text-xl font-medium
               rounded-full
@@ -67,12 +81,12 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
               hover:scale-105
               active:scale-95
             `}
-          >
-            {isLastStep ? "Submit" : "Next"}
-          </Button>
+            >
+              {isLastStep ? "Submit" : "Next"}
+            </Button>
+          </div>
         </div>
-      </div>
-    </motion.footer>
+      </motion.footer>
     </>
   );
 }
