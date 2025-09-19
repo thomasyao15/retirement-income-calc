@@ -10,11 +10,22 @@ interface IncomeBreakdownChartProps {
   className?: string;
 }
 
-// AustralianSuper brand colors
-const AS_COLORS = {
-  lifetime: "#76b900", // AS Primary Green
-  choice: "#005eb8", // AS Secondary Blue
-  pension: "#ff6900", // AS Orange
+// Get AustralianSuper brand colors from CSS variables
+const getASColors = () => {
+  if (typeof window !== 'undefined') {
+    const styles = getComputedStyle(document.documentElement);
+    return {
+      lifetime: styles.getPropertyValue('--as-grenadier').trim() || "#D93E02",  // Red/Orange
+      choice: styles.getPropertyValue('--as-tolopea').trim() || "#260046",      // Purple
+      pension: styles.getPropertyValue('--as-chamois').trim() || "#EDE1B5",     // Beige/Cream
+    };
+  }
+  // Fallback colors for SSR
+  return {
+    lifetime: "#D93E02", // AS Grenadier
+    choice: "#260046",   // AS Tolopea
+    pension: "#EDE1B5",  // AS Chamois
+  };
 };
 
 export default function IncomeBreakdownChart({
@@ -34,37 +45,45 @@ export default function IncomeBreakdownChart({
   }, []);
 
   const data = useMemo(() => {
+    // Get colors from CSS variables
+    const colors = getASColors();
+
+    // Round all values to nearest dollar
+    const roundedLifetime = Math.round(lifetimeIncome);
+    const roundedChoice = Math.round(choiceIncome);
+    const roundedPension = Math.round(agePension);
+
     // Start with 0 values if not animated yet (except Age Pension stays full)
-    const actualLifetime = isAnimated ? lifetimeIncome : 0;
-    const actualChoice = isAnimated ? choiceIncome : 0;
-    const actualPension = agePension; // Age Pension always at full value
+    const actualLifetime = isAnimated ? roundedLifetime : 0;
+    const actualChoice = isAnimated ? roundedChoice : 0;
+    const actualPension = roundedPension; // Age Pension always at full value
 
     return [
       {
         id: "Lifetime Income",
         label: "Lifetime Income",
         value: Math.max(1, actualLifetime), // Use 1 minimum to avoid empty chart
-        color: AS_COLORS.lifetime,
-        formattedValue: `$${lifetimeIncome.toLocaleString("en-AU")}`,
+        color: colors.lifetime,
+        formattedValue: `$${roundedLifetime.toLocaleString("en-AU")}`,
       },
       {
         id: "Choice Income",
         label: "Choice Income",
         value: Math.max(1, actualChoice),
-        color: AS_COLORS.choice,
-        formattedValue: `$${choiceIncome.toLocaleString("en-AU")}`,
+        color: colors.choice,
+        formattedValue: `$${roundedChoice.toLocaleString("en-AU")}`,
       },
       {
         id: "Age Pension",
         label: "Age Pension",
         value: Math.max(1, actualPension),
-        color: AS_COLORS.pension,
-        formattedValue: `$${agePension.toLocaleString("en-AU")}`,
+        color: colors.pension,
+        formattedValue: `$${roundedPension.toLocaleString("en-AU")}`,
       },
     ];
   }, [lifetimeIncome, choiceIncome, agePension, isAnimated]);
 
-  const total = lifetimeIncome + choiceIncome + agePension;
+  const total = Math.round(lifetimeIncome) + Math.round(choiceIncome) + Math.round(agePension);
 
   return (
     <div className={`w-full h-[500px] ${className}`}>
