@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Aged Pension Eligibility Calculator</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      h1 {
+        color: #2c3e50;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      select {
+        margin-top: 5px;
+        padding: 8px;
+        width: 260px;
+      }
+
+      button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        background: #3498db;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #2980b9;
+      }
+
+      .result {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        background: #f9f9f9;
+      }
+
+      .row {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        flex: 1 1 320px;
+        border: 1px solid #e0e0e0;
+        background: #fff;
+        padding: 12px;
+        border-radius: 6px;
+      }
+
+      .muted {
+        color: #666;
+        font-size: 0.9em;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 720px;
+        margin-top: 12px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+      }
+
+      thead tr {
+        background: #f0f0f0;
+      }
+
+      th:first-child,
+      td:first-child,
+      th:nth-child(2),
+      td:nth-child(2) {
+        text-align: center;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.85em;
+        background: #eef5ff;
+        color: #2c7be5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Aged Pension Eligibility Calculator</h1>
+
+    <form id="pensionForm">
+      <label for="age">Your Age:</label>
+
+      <input type="number" id="age" min="18" max="120" required />
+
+      <label for="relStatus">Relationship Status:</label>
+
+      <select id="relStatus" required>
+        <option value="">Select</option>
+
+        <option value="single">Single</option>
+
+        <option value="couple">Couple</option>
+      </select>
+
+      <label for="homeOwn">Are you a homeowner?</label>
+
+      <select id="homeOwn" required>
+        <option value="">Select</option>
+
+        <option value="yes">Yes</option>
+
+        <option value="no">No</option>
+      </select>
+
+      <label for="income">Income per fortnight (combined if couple):</label>
+
+      <input type="number" id="income" min="0" step="10" required />
+
+      <label for="assets"
+        >Total assets (excl super and combined if couple):</label
+      >
+
+      <input type="number" id="assets" min="0" step="1000" required />
+
+      <label for="superBalance">Super balance (combined if couple):</label>
+
+      <input type="number" id="superBalance" min="0" step="1000" required />
+
+      <label for="years"
+        >Projection years (age-based annual CI reduction):</label
+      >
+
+      <input type="number" id="years" min="1" max="50" step="1" value="25" />
+
+      <button type="button" onclick="calculatePension()">
+        Calculate Pension
+      </button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+      // Age-based percentage cut for the given age in that year.
+
+      function getAgeBasedCutRate(age) {
+        if (age >= 95) return 0.14;
+
+        if (age >= 90) return 0.11;
+
+        if (age >= 85) return 0.09;
+
+        if (age >= 80) return 0.07;
+
+        if (age >= 75) return 0.06;
+
+        if (age >= 65) return 0.05;
+
+        if (age >= 60) return 0.04;
+
+        return 0.0; // Under 60 assumed 0%
+      }
+
+      function calculatePension() {
+        const age = parseInt(document.getElementById("age").value, 10);
+
+        const relStatus = document.getElementById("relStatus").value;
+
+        const homeOwn = document.getElementById("homeOwn").value;
+
+        const income = parseFloat(document.getElementById("income").value);
+
+        const assets = parseFloat(document.getElementById("assets").value);
+
+        const superBalance = parseFloat(
+          document.getElementById("superBalance").value
+        );
+
+        const years = parseInt(document.getElementById("years").value, 10);
+
+        if (
+          isNaN(age) ||
+          !relStatus ||
+          !homeOwn ||
+          isNaN(income) ||
+          isNaN(assets) ||
+          isNaN(superBalance) ||
+          isNaN(years)
+        ) {
+          alert("Please fill in all fields.");
+
+          return;
+        }
+
+        const fmt = new Intl.NumberFormat("en-AU", {
+          style: "currency",
+          currency: "AUD",
+        });
+
+        // Pension rates (per fortnight)
+
+        const fullPensionSingle = 1051.3;
+
+        const fullPensionCouple = 1585.0;
+
+        // Income test thresholds (per fortnight)
+
+        const incomeFreeSingle = 218;
+
+        const incomeFreeCouple = 380;
+
+        // Asset test thresholds (lower)
+
+        const assetThresholds = {
+          single: { yes: 321500, no: 579500 },
+
+          couple: { yes: 481500, no: 739500 },
+        };
+
+        // Asset test cut-off (upper)
+
+        const assetCutOff = {
+          single: { yes: 704500, no: 962500 },
+
+          couple: { yes: 1059000, no: 1317000 },
+        };
+
+        const fullPension =
+          relStatus === "single" ? fullPensionSingle : fullPensionCouple;
+
+        // ===== Income Test =====
+
+        const incomeFree =
+          relStatus === "single" ? incomeFreeSingle : incomeFreeCouple;
+
+        const incomeReduction =
+          income > incomeFree ? (income - incomeFree) * 0.5 : 0;
+
+        const pensionIncomeTest = Math.max(fullPension - incomeReduction, 0);
+
+        // ===== Assets Test (uses combined assets = assets + super) =====
+
+        const combinedAssets = assets + superBalance;
+
+        const lowerThreshold = assetThresholds[relStatus][homeOwn];
+
+        const upperThreshold = assetCutOff[relStatus][homeOwn];
+
+        let pensionAssetTest = 0;
+
+        if (combinedAssets <= lowerThreshold) {
+          pensionAssetTest = fullPension;
+        } else if (combinedAssets >= upperThreshold) {
+          pensionAssetTest = 0;
+        } else {
+          const excess = combinedAssets - lowerThreshold;
+
+          const reduction = (excess / 1000) * 3; // $3 per $1,000 over threshold
+
+          pensionAssetTest = Math.max(fullPension - reduction, 0);
+        }
+
+        // ===== Final Pension & Percentage =====
+
+        const calcPension = Math.min(pensionIncomeTest, pensionAssetTest);
+
+        let percentage = (calcPension / fullPension) * 100;
+
+        percentage = Math.max(0, Math.min(100, percentage));
+
+        // Annual equivalents (26 fortnights = 1 year)
+
+        const annualIncomeTest = pensionIncomeTest * 26;
+
+        const annualAssetTest = pensionAssetTest * 26;
+
+        const annualFinal = calcPension * 26;
+
+        // ===== Product Recommendation =====
+
+        // 0–<10: D, 10–<50: C, 50–<90: B, 90–100: A
+
+        let product;
+
+        if (percentage >= 0 && percentage < 10) {
+          product = "D";
+        } else if (percentage >= 10 && percentage < 50) {
+          product = "C";
+        } else if (percentage >= 50 && percentage < 90) {
+          product = "B";
+        } else {
+          product = "A";
+        }
+
+        // ===== CI/LTI Allocation =====
+
+        // D: 100/0, C: 10/90, B: 20/80, A: 35/65
+
+        const allocationMap = {
+          D: { CI: 100, lti: 0 },
+
+          C: { CI: 70, lti: 30 },
+
+          B: { CI: 100, lti: 0 },
+
+          A: { CI: 100, lti: 0 },
+        };
+
+        const { CI, lti } = allocationMap[product];
+
+        const CIAmount = superBalance * (CI / 100);
+
+        const ltiAmount = superBalance * (lti / 100);
+
+        // ===== CI Projection (age-based annual cut; compounding with variable rates) =====
+
+        // For each year:
+
+        //   rate = getAgeBasedCutRate(age + year)
+
+        //   cutAmount = startOfYearBalance * rate
+
+        //   endOfYearBalance = startOfYearBalance - cutAmount
+
+        const projectionRows = [];
+
+        let currentValue = CIAmount;
+
+        const ltiDiscount = combinedAssets - 0.4 * ltiAmount;
+
+        for (let y = 0; y <= years; y++) {
+          const displayAge = age + y;
+
+          const rate = getAgeBasedCutRate(displayAge);
+
+          const cutAmount = currentValue * rate;
+
+          const endOfYear = Math.max(0, currentValue - cutAmount);
+
+          projectionRows.push(`
+
+      <tr>
+
+        <td>${displayAge}</td>
+
+        <td>${y}</td>
+
+        <td>${(rate * 100).toFixed(1)}%</td>
+
+        <td>${fmt.format(cutAmount)}</td>
+
+        <td>${fmt.format(endOfYear)}</td>
+
+      </tr>
+
+    `);
+
+          currentValue = endOfYear;
+
+          if (currentValue <= 0) break; // stop once depleted
+        }
+
+        const projectionTable = `
+
+    <h3>CI Projection <span class="pill">Age-based annual reduction</span></h3>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Age</th>
+
+          <th>Year</th>
+
+          <th>Rate</th>
+
+          <th>Amount Cut (this year)</th>
+
+          <th>CI Value (end of year)</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${projectionRows.join("")}
+
+      </tbody>
+
+    </table>
+
+   
+
+  `;
+
+        // ===== Render Summary =====
+
+        document.getElementById("result").innerHTML = `
+
+    <div class="row">
+
+      <div class="card">
+
+        <h3>Results</h3>
+
+        <p><strong>Your Age:</strong> ${age}</p>
+
+        <p><strong>Income Test Pension:</strong> ${fmt.format(
+          annualIncomeTest
+        )} per year</p>
+
+        <p><strong>Assets Test Pension:</strong> ${fmt.format(
+          annualAssetTest
+        )} per year</p>
+
+        <p><strong>Final Pension:</strong> <span style="color:green;">${fmt.format(
+          annualFinal
+        )} per year</span></p>
+
+        <p><strong>Percentage of Full Pension:</strong> ${percentage.toFixed(
+          2
+        )}%</p>
+
+      </div>
+
+ 
+
+      <div class="card">
+
+        <h3>Recommendation</h3>
+
+        <p><strong>Product:</strong> Product ${product}</p>
+
+        <p><strong>CI/LTI Allocation:</strong> ${CI}% / ${lti}%</p>
+
+      </div>
+
+ 
+
+      <div class="card">
+
+        <h3>Super & Assets</h3>
+
+        <p><strong>Super balance:</strong> ${fmt.format(superBalance)}</p>
+
+        <p><strong>Total assets (excl. super):</strong> ${fmt.format(
+          assets
+        )}</p>
+
+        <p><strong>Combined assets (used for assets test):</strong> ${fmt.format(
+          assets + superBalance
+        )}</p>
+
+        <hr />
+
+        <p><strong>CI amount (${CI}%):</strong> ${fmt.format(CIAmount)}</p>
+
+        <p><strong>LTI amount (${lti}%):</strong> ${fmt.format(ltiAmount)}</p>
+
+        <p><strong>Combined Assets with 40% LTI Discount :</strong> ${fmt.format(
+          ltiDiscount
+        )}</p>
+
+      </div>
+
+    </div>
+
+ 
+
+    ${projectionTable}
+
+  `;
+      }
+    </script>
+  </body>
+</html>
