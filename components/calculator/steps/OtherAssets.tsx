@@ -8,12 +8,20 @@ import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function OtherAssets() {
   const { nextStep } = useWizard()
-  const { pensionData, updatePensionData } = useCalculatorStore()
-  const [amount, setAmount] = useState(pensionData.otherAssets || 0)
+  const { pensionData, updatePensionData, setCurrentStepValid } = useCalculatorStore()
+  const [amount, setAmount] = useState<number | undefined>(
+    pensionData.otherAssets !== undefined ? pensionData.otherAssets : undefined
+  )
 
   useEffect(() => {
-    updatePensionData({ otherAssets: amount })
-  }, [amount, updatePensionData])
+    // Valid if amount is defined and 0 or greater
+    const isValid = amount !== undefined && amount >= 0
+    setCurrentStepValid(isValid)
+
+    if (amount !== undefined) {
+      updatePensionData({ otherAssets: amount })
+    }
+  }, [amount, updatePensionData, setCurrentStepValid])
 
   return (
     <QuestionLayout

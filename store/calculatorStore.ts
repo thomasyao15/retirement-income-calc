@@ -43,6 +43,7 @@ interface Calculations {
   totalRetirementIncome?: number
   safetyNetAmount?: number
   incomeIncreaseWithAS?: number
+  adjustedPensionAmount?: number
 }
 
 interface CalculatorState {
@@ -57,6 +58,7 @@ interface CalculatorState {
   // Navigation state
   currentSection: 'personal' | 'pension' | 'results'
   completedSteps: string[]
+  currentStepValid: boolean
 
   // Actions
   updatePersonalInfo: (data: Partial<PersonalInfo>) => void
@@ -65,6 +67,7 @@ interface CalculatorState {
   setCalculations: (data: Partial<Calculations>) => void
   markStepComplete: (stepId: string) => void
   setCurrentSection: (section: 'personal' | 'pension' | 'results') => void
+  setCurrentStepValid: (valid: boolean) => void
 
   // Helper to get all data for calculations
   getAllData: () => {
@@ -83,7 +86,8 @@ const initialState = {
   pensionData: {},
   calculations: {},
   currentSection: 'personal' as const,
-  completedSteps: []
+  completedSteps: [],
+  currentStepValid: true
 }
 
 export const useCalculatorStore = create<CalculatorState>((set, get) => ({
@@ -116,6 +120,9 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
 
   setCurrentSection: (section) =>
     set({ currentSection: section }),
+
+  setCurrentStepValid: (valid) =>
+    set({ currentStepValid: valid }),
 
   getAllData: () => {
     const state = get()

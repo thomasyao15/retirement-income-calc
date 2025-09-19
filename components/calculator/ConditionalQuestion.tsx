@@ -5,6 +5,7 @@ import { useWizard } from "react-use-wizard"
 import QuestionLayout from "@/components/calculator/QuestionLayout"
 import MultipleChoice from "@/components/calculator/inputs/MultipleChoice"
 import CurrencyInput from "@/components/calculator/inputs/CurrencyInput"
+import { useCalculatorStore } from "@/store/calculatorStore"
 
 interface ConditionalQuestionProps {
   binaryQuestion: string
@@ -38,14 +39,33 @@ export default function ConditionalQuestion({
   step = 1000
 }: ConditionalQuestionProps) {
   const { nextStep, previousStep } = useWizard()
+  const { setCurrentStepValid } = useCalculatorStore()
   const [showAmount, setShowAmount] = useState(defaultBinary)
   const [hasAnswer, setHasAnswer] = useState<string>(defaultBinary ? "yes" : "")
-  const [amount, setAmount] = useState(defaultAmount)
+  const [amount, setAmount] = useState<number | undefined>(defaultAmount || undefined)
 
   const binaryOptions = [
     { value: "yes", label: "Yes" },
     { value: "no", label: "No" }
   ]
+
+  // Validate when showing binary question
+  useEffect(() => {
+    if (!showAmount) {
+      // Must select yes or no
+      const isValid = hasAnswer === "yes" || hasAnswer === "no"
+      setCurrentStepValid(isValid)
+    }
+  }, [hasAnswer, showAmount, setCurrentStepValid])
+
+  // Validate when showing amount question
+  useEffect(() => {
+    if (showAmount) {
+      // Must have a valid amount (including 0)
+      const isValid = amount !== undefined && amount >= 0
+      setCurrentStepValid(isValid)
+    }
+  }, [amount, showAmount, setCurrentStepValid])
 
   useEffect(() => {
     const hasMoney = hasAnswer === "yes"
@@ -59,7 +79,7 @@ export default function ConditionalQuestion({
   }, [hasAnswer]) // Only depend on hasAnswer to avoid infinite loops
 
   useEffect(() => {
-    if (showAmount && amount > 0) {
+    if (showAmount && amount !== undefined && amount >= 0) {
       onAmountChange(amount)
     }
   }, [amount, showAmount]) // Only depend on amount and showAmount

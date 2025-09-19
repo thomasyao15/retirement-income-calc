@@ -1,8 +1,16 @@
 "use client"
 
+import { useEffect } from "react"
 import { motion } from "framer-motion"
+import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function UnderstandingOptions() {
+  const { setCurrentStepValid } = useCalculatorStore()
+
+  useEffect(() => {
+    // Info page is always valid
+    setCurrentStepValid(true)
+  }, [setCurrentStepValid])
   const options = [
     {
       title: "Lifetime Income",

@@ -17,7 +17,6 @@ import SuperBalance from "@/components/calculator/steps/SuperBalance";
 import BankMoney from "@/components/calculator/steps/BankMoney";
 import SharesInvestment from "@/components/calculator/steps/SharesInvestment";
 import InvestmentProperty from "@/components/calculator/steps/InvestmentProperty";
-import IncomeStreams from "@/components/calculator/steps/IncomeStreams";
 
 // Step components - Age Pension
 import AgePensionIntro from "@/components/calculator/steps/AgePensionIntro";
@@ -70,7 +69,6 @@ export default function CalculatorPage() {
           <BankMoney />
           <SharesInvestment />
           <InvestmentProperty />
-          <IncomeStreams />
 
           {/* Section 1 Complete */}
           <Section1Checkpoint />

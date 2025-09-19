@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 
 interface CurrencyInputProps {
-  value: number;
-  onChange: (value: number) => void;
+  value: number | undefined;
+  onChange: (value: number | undefined) => void;
   placeholder?: string;
   error?: string;
 }
@@ -18,8 +18,10 @@ export default function CurrencyInput({
   const [displayValue, setDisplayValue] = useState("");
 
   useEffect(() => {
-    if (value) {
+    if (value !== undefined && value !== null) {
       setDisplayValue(formatForDisplay(value));
+    } else {
+      setDisplayValue("");
     }
   }, [value]);
 
@@ -35,7 +37,7 @@ export default function CurrencyInput({
 
     if (rawValue === "") {
       setDisplayValue("");
-      onChange(0);
+      onChange(undefined);
       return;
     }
 

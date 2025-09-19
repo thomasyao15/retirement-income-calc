@@ -5,31 +5,94 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/calculator/AnimatedCounter";
 import IncomeBreakdownChart from "@/components/calculator/IncomeBreakdownChart";
 import { useCalculatorStore } from "@/store/calculatorStore";
+import {
+  getAllocationByProduct,
+  calculateAnnualChoiceIncome
+} from "@/lib/calculations";
 
 export default function FinalIncomeDisplay() {
-  const { setCalculations, calculations, personalInfo } = useCalculatorStore();
+  const {
+    setCalculations,
+    calculations,
+    personalInfo,
+    setCurrentStepValid
+  } = useCalculatorStore();
 
   useEffect(() => {
-    // Only calculate if we haven't already set these values
-    if (!calculations.totalRetirementIncome) {
-      // Calculate based on super balance
+    // Display page is always valid
+    setCurrentStepValid(true);
+  }, [setCurrentStepValid]);
+
+  useEffect(() => {
+    // Only calculate choice income if we haven't already
+    if (!calculations.choiceIncome && calculations.lifetimeIncome) {
+      console.group('📊 FinalIncomeDisplay - Total Income Calculation');
+      console.log('=====================================');
+
       const superBalance = personalInfo.superBalance || 500000;
-      const lifetimeIncome = Math.round(superBalance * 0.037); // ~3.7% of super as lifetime income
-      const choiceIncome = Math.round(superBalance * 0.05); // ~5% of super as choice income
-      const baseAgePension = calculations.estimatedPension || 28976;
-      const agePensionWithAS = Math.round(baseAgePension * 1.4); // 40% increase with AS
-      const totalIncome = lifetimeIncome + choiceIncome + agePensionWithAS;
+      const product = calculations.recommendedPreMix || 'B';
+
+      console.group('🎯 Input Values');
+      console.table({
+        'Super Balance': `$${superBalance.toLocaleString()}`,
+        'Product': product,
+        'Age': personalInfo.age || 67,
+        'Lifetime Income': `$${(calculations.lifetimeIncome || 0).toLocaleString()}/year`,
+        'Adjusted Pension': `$${(calculations.adjustedPensionAmount || calculations.estimatedPension || 0).toLocaleString()}/year`
+      });
+      console.groupEnd();
+
+      // Get allocation based on product recommendation
+      const allocation = getAllocationByProduct(product, superBalance);
+
+      // Calculate income streams
+      const retirementYears = personalInfo.retirementYears ||
+        (personalInfo.expectedLongevity || 85) - (personalInfo.age || 67);
+
+      console.log('Retirement Years:', retirementYears);
+
+      const annualChoiceIncome = calculateAnnualChoiceIncome(
+        allocation.choiceAmount,
+        personalInfo.age || 67,
+        retirementYears
+      );
+
+      console.group('💸 Income Components');
+      console.table({
+        'Choice Income': `$${Math.round(annualChoiceIncome).toLocaleString()}/year`,
+        'Lifetime Income': `$${(calculations.lifetimeIncome || 0).toLocaleString()}/year`,
+        'Age Pension': `$${(calculations.adjustedPensionAmount || calculations.estimatedPension || 0).toLocaleString()}/year`
+      });
+      console.groupEnd();
+
+      // Total income = choice + lifetime + adjusted pension
+      const totalIncome = annualChoiceIncome +
+                         (calculations.lifetimeIncome || 0) +
+                         (calculations.adjustedPensionAmount || calculations.estimatedPension || 0);
+
+      console.group('🎉 Total Retirement Income');
+      console.log('Total:', `$${Math.round(totalIncome).toLocaleString()}/year`);
+      console.groupEnd();
 
       setCalculations({
-        lifetimeIncome,
-        choiceIncome,
-        estimatedPension: agePensionWithAS,
-        totalRetirementIncome: totalIncome,
-        incomeIncreaseWithAS: agePensionWithAS - baseAgePension,
-        recommendedPreMix: "B", // Example pre-mix option
+        choiceIncome: Math.round(annualChoiceIncome),
+        totalRetirementIncome: Math.round(totalIncome),
+        // Note: incomeIncreaseWithAS should be calculated in AgePensionResult
       });
+
+      console.log('✅ Final calculations stored');
+      console.groupEnd();
+      console.log('=====================================\n');
     }
-  }, [personalInfo.superBalance]); // Re-calculate if super balance changes
+  }, [
+    calculations.lifetimeIncome,
+    calculations.choiceIncome,
+    calculations.recommendedPreMix,
+    calculations.estimatedPension,
+    calculations.adjustedPensionAmount,
+    personalInfo,
+    setCalculations
+  ]); // Re-calculate when inputs change
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4 py-12">
@@ -86,7 +149,7 @@ export default function FinalIncomeDisplay() {
           <IncomeBreakdownChart
             lifetimeIncome={calculations.lifetimeIncome || 0}
             choiceIncome={calculations.choiceIncome || 0}
-            agePension={calculations.estimatedPension || 0}
+            agePension={(calculations.estimatedPension || 0) + (calculations.incomeIncreaseWithAS || 0)}
           />
         </motion.div>
 

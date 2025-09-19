@@ -4,6 +4,8 @@ import { useWizard } from "react-use-wizard";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCalculatorStore } from "@/store/calculatorStore";
+import { useState } from "react";
 
 interface WizardFooterProps {
   onNext?: () => Promise<boolean> | boolean;
@@ -19,7 +21,16 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
     stepCount,
   } = useWizard();
 
+  const currentStepValid = useCalculatorStore(state => state.currentStepValid);
+  const [showError, setShowError] = useState(false);
+
   const handleNext = async () => {
+    if (!currentStepValid) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+      return;
+    }
+
     // If custom onNext is provided, call it first
     if (onNext) {
       const canProceed = await onNext();
@@ -71,20 +82,30 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
             <Button
               onClick={handleNext}
               size="lg"
+              disabled={!currentStepValid}
               className={`
               min-w-[160px] h-14 md:h-16
               text-lg md:text-xl font-medium
               rounded-full
-              bg-primary hover:bg-primary/90
-              text-primary-foreground
               transition-all duration-200
-              hover:scale-105
-              active:scale-95
+              ${currentStepValid
+                ? 'bg-primary hover:bg-primary/90 text-primary-foreground hover:scale-105 active:scale-95'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }
             `}
             >
               {isLastStep ? "Submit" : "Next"}
             </Button>
           </div>
+
+          {/* Error message */}
+          {showError && (
+            <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
+              <div className="bg-red-500 text-white px-6 py-2 rounded-full text-sm shadow-lg animate-in fade-in slide-in-from-bottom-5 duration-300">
+                Please complete this field before continuing
+              </div>
+            </div>
+          )}
         </div>
       </motion.footer>
     </>

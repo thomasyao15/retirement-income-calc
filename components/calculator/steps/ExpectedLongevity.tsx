@@ -1,27 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionLayout from "@/components/calculator/QuestionLayout";
 import NumericInput from "@/components/calculator/inputs/NumericInput";
 import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function ExpectedLongevity() {
-  const { personalInfo, updatePersonalInfo } = useCalculatorStore();
-  const [years, setYears] = useState(personalInfo.expectedLongevity);
+  const { personalInfo, updatePersonalInfo, setCurrentStepValid } = useCalculatorStore();
+  const [years, setYears] = useState(personalInfo.retirementYears);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const isValid = years !== undefined && years >= 1 && years <= 50;
+    setCurrentStepValid(isValid);
+  }, [years, setCurrentStepValid]);
 
   const handleChange = (value: number | undefined) => {
     setYears(value);
     setError("");
 
     if (value !== undefined) {
-      const currentAge = personalInfo.age || 65;
-      if (value < currentAge) {
-        setError(`Must be at least ${currentAge} years old`);
-      } else if (value > 120) {
-        setError("Please enter a valid age");
+      if (value < 1) {
+        setError("Must be at least 1 year");
+      } else if (value > 50) {
+        setError("Maximum 50 years");
       } else {
-        updatePersonalInfo({ expectedLongevity: value });
+        updatePersonalInfo({
+          retirementYears: value,
+          expectedLongevity: (personalInfo.age || 65) + value
+        });
       }
     }
   };
@@ -35,12 +42,13 @@ export default function ExpectedLongevity() {
         <NumericInput
           value={years}
           onChange={handleChange}
-          min={personalInfo.age || 65}
-          max={120}
-          placeholder="90"
+          min={1}
+          max={50}
+          placeholder="25"
           error={error}
           autoFocus
         />
+        <p className="text-sm text-muted-foreground">years</p>
       </div>
     </QuestionLayout>
   );

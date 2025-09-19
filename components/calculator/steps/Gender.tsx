@@ -8,7 +8,7 @@ import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function Gender() {
   const { nextStep } = useWizard()
-  const { personalInfo, updatePersonalInfo } = useCalculatorStore()
+  const { personalInfo, updatePersonalInfo, setCurrentStepValid } = useCalculatorStore()
   const [gender, setGender] = useState<string>(personalInfo.gender || "")
 
   const options = [
@@ -18,10 +18,13 @@ export default function Gender() {
   ]
 
   useEffect(() => {
+    const isValid = gender !== ""
+    setCurrentStepValid(isValid)
+
     if (gender) {
       updatePersonalInfo({ gender: gender as 'male' | 'female' | 'other' })
     }
-  }, [gender, updatePersonalInfo])
+  }, [gender, updatePersonalInfo, setCurrentStepValid])
 
   return (
     <QuestionLayout

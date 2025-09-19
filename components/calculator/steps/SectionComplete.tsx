@@ -1,8 +1,17 @@
 "use client"
 
+import { useEffect } from "react"
 import TextDisplay from "@/components/calculator/TextDisplay"
+import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function SectionComplete() {
+  const { setCurrentStepValid } = useCalculatorStore()
+
+  useEffect(() => {
+    // Info page is always valid
+    setCurrentStepValid(true)
+  }, [setCurrentStepValid])
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)]">
       <TextDisplay

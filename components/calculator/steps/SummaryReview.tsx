@@ -1,11 +1,17 @@
 "use client"
 
+import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { useCalculatorStore } from "@/store/calculatorStore"
 import { Button } from "@/components/ui/button"
 
 export default function SummaryReview() {
-  const { personalInfo, assets, pensionData, calculations } = useCalculatorStore()
+  const { personalInfo, assets, pensionData, calculations, setCurrentStepValid } = useCalculatorStore()
+
+  useEffect(() => {
+    // Summary page is always valid
+    setCurrentStepValid(true)
+  }, [setCurrentStepValid])
 
   const formatCurrency = (value?: number) => {
     if (value === undefined || value === 0) return "$0"

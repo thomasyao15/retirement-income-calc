@@ -8,14 +8,22 @@ import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function CombinedIncome() {
   const { nextStep } = useWizard()
-  const { pensionData, updatePensionData, personalInfo } = useCalculatorStore()
-  const [income, setIncome] = useState(pensionData.combinedIncome || 0)
+  const { pensionData, updatePensionData, personalInfo, setCurrentStepValid } = useCalculatorStore()
+  const [income, setIncome] = useState<number | undefined>(
+    pensionData.combinedIncome !== undefined ? pensionData.combinedIncome : undefined
+  )
 
   const isCouple = personalInfo.relationshipStatus === "married" || personalInfo.relationshipStatus === "defacto"
 
   useEffect(() => {
-    updatePensionData({ combinedIncome: income })
-  }, [income, updatePensionData])
+    // Valid if income is defined and 0 or greater
+    const isValid = income !== undefined && income >= 0
+    setCurrentStepValid(isValid)
+
+    if (income !== undefined) {
+      updatePensionData({ combinedIncome: income })
+    }
+  }, [income, updatePensionData, setCurrentStepValid])
 
   return (
     <QuestionLayout
