@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
-import Logo from "@/app/assets/AustralianSuper_logo.svg"
+import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Logo from "@/app/assets/AustralianSuper_logo.svg";
 
 export default function Navbar() {
   return (
@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <Image
               src={Logo}
-              alt="Australian Super"
+              alt="AustralianSuper"
               width={200}
               height={40}
               className="h-10 w-auto"
@@ -62,14 +62,12 @@ export default function Navbar() {
             </Button>
 
             {/* Join button - grenadier color */}
-            <Button
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 rounded-full"
-            >
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 rounded-full">
               JOIN
             </Button>
           </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }

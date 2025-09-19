@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Australian Super - Retirement Income Calculator",
-  description: "Calculate your retirement income with Australian Super",
+  title: "AustralianSuper - Retirement Income Calculator",
+  description: "Calculate your retirement income with AustralianSuper",
 };
 
 export default function RootLayout({

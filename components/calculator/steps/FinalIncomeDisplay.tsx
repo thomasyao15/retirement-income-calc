@@ -54,7 +54,7 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          With Australian Super Pre-Mix Option {calculations.recommendedPreMix}
+          With AustralianSuper Pre-Mix Option {calculations.recommendedPreMix}
         </motion.p>
 
         <motion.div
@@ -102,7 +102,7 @@ export default function FinalIncomeDisplay() {
             more per year
           </p>
           <p className="text-lg text-muted-foreground">
-            Thanks to Australian Super's lifetime income discount on the Age
+            Thanks to AustralianSuper's lifetime income discount on the Age
             Pension means test
           </p>
         </motion.div>

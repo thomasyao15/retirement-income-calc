@@ -1,39 +1,42 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { useWizard } from "react-use-wizard"
-import { Check, Circle, Phone } from "lucide-react"
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { useWizard } from "react-use-wizard";
+import { Check, Circle, Phone } from "lucide-react";
 
 export default function CallToAction() {
-  const router = useRouter()
-  const { nextStep } = useWizard()
+  const router = useRouter();
+  const { nextStep } = useWizard();
 
   const handleGenerateForm = () => {
     // Move to summary page
-    nextStep()
-  }
+    nextStep();
+  };
 
   const handleCallAdvisor = () => {
     // Could trigger phone call or show contact modal
-    window.location.href = "tel:1300-300-273" // Australian Super contact number
-  }
+    window.location.href = "tel:1300-300-273"; // AustralianSuper contact number
+  };
 
   const steps = [
     {
       title: "Download your personalized report",
-      description: "Get your pre-filled application with all your retirement income projections"
+      description:
+        "Get your pre-filled application with all your retirement income projections",
     },
     {
       title: "Speak with a retirement specialist",
-      description: "Free consultation to review your options and answer any questions"
+      description:
+        "Free consultation to review your options and answer any questions",
     },
     {
       title: "Activate your retirement income",
-      description: "Start receiving your optimized payments and enjoy financial security"
-    }
-  ]
+      description:
+        "Start receiving your optimized payments and enjoy financial security",
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
@@ -111,13 +114,16 @@ export default function CallToAction() {
 
                 {/* Step Circle */}
                 <div className="relative z-10">
-                  <div className={`
+                  <div
+                    className={`
                     w-12 h-12 rounded-full flex items-center justify-center
-                    ${index === 0
-                      ? 'bg-primary text-white ring-4 ring-primary/20'
-                      : 'bg-muted text-muted-foreground'
+                    ${
+                      index === 0
+                        ? "bg-primary text-white ring-4 ring-primary/20"
+                        : "bg-muted text-muted-foreground"
                     }
-                  `}>
+                  `}
+                  >
                     {index === 0 ? (
                       <Circle className="w-6 h-6" />
                     ) : (
@@ -128,16 +134,20 @@ export default function CallToAction() {
 
                 {/* Step Content */}
                 <div className="flex-1 pb-2">
-                  <h4 className={`
+                  <h4
+                    className={`
                     text-lg font-semibold mb-1
-                    ${index === 0 ? 'text-primary' : 'text-foreground'}
-                  `}>
+                    ${index === 0 ? "text-primary" : "text-foreground"}
+                  `}
+                  >
                     {step.title}
                   </h4>
-                  <p className={`
+                  <p
+                    className={`
                     text-sm
-                    ${index === 0 ? 'text-primary/80' : 'text-muted-foreground'}
-                  `}>
+                    ${index === 0 ? "text-primary/80" : "text-muted-foreground"}
+                  `}
+                  >
                     {step.description}
                   </p>
                 </div>
@@ -147,5 +157,5 @@ export default function CallToAction() {
         </motion.div>
       </motion.div>
     </div>
-  )
+  );
 }

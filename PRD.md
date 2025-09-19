@@ -1,18 +1,18 @@
 # Product Requirements Document
-## Australian Super Retirement Income Calculator
+## AustralianSuper Retirement Income Calculator
 
 ### Executive Summary
-A polished, narrative-driven retirement income calculator designed for Australian Super members approaching retirement. The calculator guides users through a wizard-style multi-step form to determine their optimal pre-mix investment option based on their Age Pension eligibility and personal circumstances.
+A polished, narrative-driven retirement income calculator designed for AustralianSuper members approaching retirement. The calculator guides users through a wizard-style multi-step form to determine their optimal pre-mix investment option based on their Age Pension eligibility and personal circumstances.
 
 ---
 
 ## 1. Product Overview
 
 ### Purpose
-To help Australian Super members who are about to retire calculate their projected retirement income and recommend an optimal pre-mix investment option tailored to their Age Pension eligibility status.
+To help AustralianSuper members who are about to retire calculate their projected retirement income and recommend an optimal pre-mix investment option tailored to their Age Pension eligibility status.
 
 ### Target Users
-- Australian Super members approaching retirement age
+- AustralianSuper members approaching retirement age
 - Members seeking to understand their retirement income options
 - Members wanting personalized pre-mix recommendations
 
@@ -30,7 +30,7 @@ To help Australian Super members who are about to retire calculate their project
 Pre-mix options are preset retirement income strategies composed of three components:
 
 1. **Age Pension** - Government pension based on eligibility
-2. **Lifetime Income** - Australian Super product offering guaranteed income for life from a lump sum investment
+2. **Lifetime Income** - AustralianSuper product offering guaranteed income for life from a lump sum investment
 3. **Choice Income** - Annuity-like product allowing regular withdrawals while remaining funds continue to grow
 
 ### 2.2 Pre-mix Determination Logic
@@ -79,7 +79,7 @@ Each step includes a short, conversational intro:
 - "Now, let's see if you qualify for Age Pension."
 - "Here's how your future income could look."
 
-This creates a lightweight story arc with beginning, middle, and payoff that builds trust and aligns with Australian Super's brand tone.
+This creates a lightweight story arc with beginning, middle, and payoff that builds trust and aligns with AustralianSuper's brand tone.
 
 ### 3.5 Micro-Animations & Transitions
 Keep the flow playful without gimmicks through subtle animations:
@@ -351,7 +351,7 @@ These milestone moments reinforce the narrative arc and help users understand th
 - Corporate clean design: Apple Card application, Stripe checkout
 - Narrative flow: Headspace onboarding, Duolingo
 
-### B. Australian Super Brand Guidelines
+### B. AustralianSuper Brand Guidelines
 - Colors, typography, and tone of voice to be incorporated
 - Accessibility standards compliance
 - Legal disclaimer requirements

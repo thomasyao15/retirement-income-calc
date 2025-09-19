@@ -16,7 +16,7 @@ export default function Home() {
               Retirement Income Calculator
             </h1>
             <p className="text-xl text-muted-foreground text-center max-w-2xl mb-8">
-              Welcome to Australian Super's Retirement Income Calculator. Let's
+              Welcome to AustralianSuper's Retirement Income Calculator. Let's
               plan your financial future together.
             </p>
             <Link href="/calculator">

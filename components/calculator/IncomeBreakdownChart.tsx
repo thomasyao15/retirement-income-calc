@@ -10,7 +10,7 @@ interface IncomeBreakdownChartProps {
   className?: string;
 }
 
-// Australian Super brand colors
+// AustralianSuper brand colors
 const AS_COLORS = {
   lifetime: "#76b900", // AS Primary Green
   choice: "#005eb8", // AS Secondary Blue

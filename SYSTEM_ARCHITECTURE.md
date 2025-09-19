@@ -211,7 +211,7 @@ Following shadcn's recommended approach - using CSS variables only, no separate 
 **Theme Configuration** (`app/globals.css`)
 ```css
 :root {
-  /* Australian Super Brand Colors */
+  /* AustralianSuper Brand Colors */
   --primary: oklch(0.25 0.09 165);        /* AS Deep Green */
   --primary-foreground: oklch(1 0 0);     /* White */
 
@@ -249,7 +249,7 @@ Following shadcn's recommended approach - using CSS variables only, no separate 
 ```tsx
 // Simple, consistent usage everywhere
 <div className="bg-primary text-primary-foreground">
-  Australian Super
+  AustralianSuper
 </div>
 
 <Button variant="secondary">Continue</Button>
