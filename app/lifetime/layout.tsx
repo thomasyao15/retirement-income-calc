@@ -12,8 +12,8 @@ export default function LifetimeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-w-[428px] mx-auto min-h-screen bg-white">
+    <>
       {children}
-    </div>
+    </>
   );
 }
