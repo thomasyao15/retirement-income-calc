@@ -7,12 +7,9 @@ import {
   MoreHorizontal,
   Bell,
   MessageCircle,
-  Umbrella,
-  Compass,
   ChevronRight,
   Info,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
@@ -52,7 +49,7 @@ export default function HomePage() {
           <label className="text-sm font-bold" style={{ color: purpleColor }}>
             Contribution caps
           </label>
-          <div className="pb-4">
+          <div className="pt-6">
             <Separator className="bg-gray-300" />
           </div>
         </div>
@@ -62,7 +59,7 @@ export default function HomePage() {
           <label className="text-sm font-bold" style={{ color: purpleColor }}>
             BPAY
           </label>
-          <div className="pb-4">
+          <div className="pt-6">
             <Separator className="bg-gray-300" />
           </div>
         </div>
@@ -105,8 +102,12 @@ export default function HomePage() {
           <Card className="bg-white py-0">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <Umbrella className="w-6 h-6 text-orange-600" />
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img
+                    src="/assets/insurance-cover.png"
+                    alt="Insurance Cover"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <p className="text-base font-medium">Cover not started</p>
@@ -124,8 +125,12 @@ export default function HomePage() {
           <Card className="bg-white py-0">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Compass className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img
+                    src="/assets/member-direct.png"
+                    alt="Member Direct"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1">
                   <p className="text-base font-medium">
@@ -146,8 +151,12 @@ export default function HomePage() {
           <Card className="bg-white py-0">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Compass className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img
+                    src="/assets/lifetime-income-product.png"
+                    alt="Lifetime Income Product"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1">
                   <p className="text-base font-medium">
@@ -177,7 +186,7 @@ export default function HomePage() {
                 + Add
               </button>
             </div>
-            <div className="pb-4">
+            <div className="pt-6">
               <Separator className="bg-gray-300" />
             </div>
           </div>
@@ -187,7 +196,7 @@ export default function HomePage() {
             <label className="text-sm font-bold" style={{ color: purpleColor }}>
               Tell your employer
             </label>
-            <div className="pb-4">
+            <div className="pt-6">
               <Separator className="bg-gray-300" />
             </div>
           </div>
@@ -197,7 +206,7 @@ export default function HomePage() {
             <label className="text-sm font-bold" style={{ color: purpleColor }}>
               Consolidate your super
             </label>
-            <div className="pb-4">
+            <div className="pt-6">
               <Separator className="bg-gray-300" />
             </div>
           </div>
