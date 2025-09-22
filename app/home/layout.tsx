@@ -12,5 +12,5 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="mx-auto min-h-screen bg-white">{children}</div>;
+  return <>{children}</>;
 }
