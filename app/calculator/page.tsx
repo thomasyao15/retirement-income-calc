@@ -27,6 +27,7 @@ import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 
 // Step components - Pre-Mix Recommendation
 import PreMixIntro from "@/components/calculator/steps/PreMixIntro";
+import WhatIsPreSet from "@/components/calculator/steps/WhatIsPreSet";
 import UnderstandingOptions from "@/components/calculator/steps/UnderstandingOptions";
 import SafetyNetDisplay from "@/components/calculator/steps/SafetyNetDisplay";
 import FinalIncomeDisplay from "@/components/calculator/steps/FinalIncomeDisplay";
@@ -48,7 +49,7 @@ const Section2Checkpoint = () => (
     currentSection={2}
     title="Excellent work!"
     subtitle="We've calculated your Age Pension eligibility"
-    content="Finally, let's explore your personalized Pre-Mix recommendation to maximize your retirement income."
+    content="Finally, let's explore your personalised Pre-Mix recommendation to maximise your retirement income."
   />
 );
 
@@ -85,6 +86,7 @@ export default function CalculatorPage() {
 
           {/* Section 3: Pre-Mix Recommendation */}
           <PreMixIntro />
+          <WhatIsPreSet />
           <UnderstandingOptions />
           <SafetyNetDisplay />
           <FinalIncomeDisplay />

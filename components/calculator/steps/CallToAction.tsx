@@ -30,7 +30,7 @@ export default function CallToAction() {
 
   const steps = [
     {
-      title: "Download your personalized report",
+      title: "Download your personalised report",
       description:
         "Get your pre-filled application with all your retirement income projections",
     },
@@ -42,7 +42,7 @@ export default function CallToAction() {
     {
       title: "Activate your retirement income",
       description:
-        "Start receiving your optimized payments and enjoy financial security",
+        "Start receiving your optimised payments and enjoy financial security",
     },
   ];
 

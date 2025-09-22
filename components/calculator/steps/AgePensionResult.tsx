@@ -13,7 +13,7 @@ export default function AgePensionResult() {
     personalInfo,
     assets,
     pensionData,
-    setCurrentStepValid
+    setCurrentStepValid,
   } = useCalculatorStore();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function AgePensionResult() {
   }, [setCurrentStepValid]);
 
   useEffect(() => {
-    console.group('🧮 AgePensionResult - Running Centralized Calculations');
+    console.group("🧮 AgePensionResult - Running Centralized Calculations");
 
     // Prepare data for calculation service
     const calculatorData = {
@@ -47,7 +47,7 @@ export default function AgePensionResult() {
       // Pension Data
       homeOwnership: pensionData.homeOwnership,
       otherAssets: pensionData.otherAssets,
-      combinedIncome: pensionData.combinedIncome
+      combinedIncome: pensionData.combinedIncome,
     };
 
     // Run centralized calculations
@@ -74,10 +74,10 @@ export default function AgePensionResult() {
 
       // Product and eligibility
       pensionEligibility: results.eligibility,
-      recommendedPreMix: results.recommendedProduct
+      recommendedPreMix: results.recommendedProduct,
     });
 
-    console.log('✅ All calculations stored in state');
+    console.log("✅ All calculations stored in state");
     console.groupEnd();
   }, [personalInfo, assets, pensionData, setCalculations]);
 
@@ -139,7 +139,7 @@ export default function AgePensionResult() {
         >
           <p className="text-lg text-foreground">
             💡 With AustralianSuper's lifetime income product, you could
-            increase this by up to 40%
+            increase this further
           </p>
         </motion.div>
       </motion.div>

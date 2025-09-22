@@ -1,36 +1,37 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { motion } from "framer-motion"
-import { useCalculatorStore } from "@/store/calculatorStore"
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function UnderstandingOptions() {
-  const { setCurrentStepValid } = useCalculatorStore()
+  const { setCurrentStepValid } = useCalculatorStore();
 
   useEffect(() => {
     // Info page is always valid
-    setCurrentStepValid(true)
-  }, [setCurrentStepValid])
+    setCurrentStepValid(true);
+  }, [setCurrentStepValid]);
   const options = [
     {
       title: "Lifetime Income",
-      description: "Guaranteed income for life, no matter how long you live",
+      description:
+        "Guaranteed income for life, even if your investments run out",
       icon: "🛡️",
-      highlight: "40% discount on Age Pension means test"
+      highlight: "40% discount on Age Pension means test",
     },
     {
       title: "Choice Income",
       description: "Flexible withdrawals while your money continues to grow",
       icon: "📈",
-      highlight: "Access when you need it"
+      highlight: "Access when you need it",
     },
     {
       title: "Age Pension",
       description: "Government support you're entitled to",
       icon: "🏛️",
-      highlight: "Maximized with our strategy"
-    }
-  ]
+      highlight: "Maximised with our strategy",
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
@@ -71,12 +72,14 @@ export default function UnderstandingOptions() {
               <h3 className="text-2xl font-bold mb-4">{option.title}</h3>
               <p className="text-muted-foreground mb-6">{option.description}</p>
               <div className="p-3 bg-primary/10 rounded-xl">
-                <p className="text-sm font-semibold text-primary">{option.highlight}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {option.highlight}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
       </motion.div>
     </div>
-  )
+  );
 }

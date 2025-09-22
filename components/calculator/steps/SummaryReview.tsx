@@ -210,7 +210,7 @@ export default function SummaryReview() {
         ))}
 
         <motion.div
-          className="flex flex-col md:flex-row gap-4 justify-center pt-8"
+          className="flex flex-col md:flex-row gap-4 justify-center pt-8 pb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}

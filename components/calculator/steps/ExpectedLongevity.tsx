@@ -6,7 +6,8 @@ import NumericInput from "@/components/calculator/inputs/NumericInput";
 import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function ExpectedLongevity() {
-  const { personalInfo, updatePersonalInfo, setCurrentStepValid } = useCalculatorStore();
+  const { personalInfo, updatePersonalInfo, setCurrentStepValid } =
+    useCalculatorStore();
   const [years, setYears] = useState(personalInfo.retirementYears);
   const [error, setError] = useState("");
 
@@ -27,7 +28,7 @@ export default function ExpectedLongevity() {
       } else {
         updatePersonalInfo({
           retirementYears: value,
-          expectedLongevity: (personalInfo.age || 65) + value
+          expectedLongevity: (personalInfo.age || 65) + value,
         });
       }
     }
@@ -48,7 +49,7 @@ export default function ExpectedLongevity() {
           error={error}
           autoFocus
         />
-        <p className="text-sm text-muted-foreground">years</p>
+        <p className="text-2xl text-muted-foreground">years</p>
       </div>
     </QuestionLayout>
   );
