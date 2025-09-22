@@ -1,79 +1,152 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { motion } from "framer-motion"
-import { useCalculatorStore } from "@/store/calculatorStore"
-import { Button } from "@/components/ui/button"
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { useCalculatorStore } from "@/store/calculatorStore";
+import { Button } from "@/components/ui/button";
 
 export default function SummaryReview() {
-  const { personalInfo, assets, pensionData, calculations, setCurrentStepValid } = useCalculatorStore()
+  const {
+    personalInfo,
+    assets,
+    pensionData,
+    calculations,
+    setCurrentStepValid,
+  } = useCalculatorStore();
 
   useEffect(() => {
     // Summary page is always valid
-    setCurrentStepValid(true)
-  }, [setCurrentStepValid])
+    setCurrentStepValid(true);
+  }, [setCurrentStepValid]);
 
   const formatCurrency = (value?: number) => {
-    if (value === undefined || value === 0) return "$0"
-    return new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
+    if (value === undefined || value === 0) return "$0";
+    return new Intl.NumberFormat("en-AU", {
+      style: "currency",
+      currency: "AUD",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(value)
-  }
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   const sections = [
     {
       title: "Personal Information",
       items: [
-        { label: "Age", value: personalInfo.age ? `${personalInfo.age} years` : "Not provided" },
+        {
+          label: "Age",
+          value: personalInfo.age
+            ? `${personalInfo.age} years`
+            : "Not provided",
+        },
         { label: "Gender", value: personalInfo.gender || "Not provided" },
-        { label: "Relationship Status", value: personalInfo.relationshipStatus || "Not provided" },
-        { label: "Expected Retirement Age", value: personalInfo.retirementAge ? `${personalInfo.retirementAge} years` : "Not provided" },
-        { label: "Expected Longevity", value: personalInfo.expectedLongevity ? `${personalInfo.expectedLongevity} years` : "Not provided" }
-      ]
+        {
+          label: "Relationship Status",
+          value: personalInfo.relationshipStatus || "Not provided",
+        },
+        {
+          label: "Expected Retirement Age",
+          value: personalInfo.retirementAge
+            ? `${personalInfo.retirementAge} years`
+            : "Not provided",
+        },
+        {
+          label: "Expected Longevity",
+          value: personalInfo.expectedLongevity
+            ? `${personalInfo.expectedLongevity} years`
+            : "Not provided",
+        },
+      ],
     },
     {
       title: "Financial Assets",
       items: [
-        { label: "Super Balance", value: formatCurrency(personalInfo.superBalance) },
-        { label: "Bank Money", value: assets.hasBankMoney ? formatCurrency(assets.bankMoneyAmount) : "No" },
-        { label: "Shares/Investments", value: assets.hasShares ? formatCurrency(assets.sharesValue) : "No" },
-        { label: "Investment Property", value: assets.hasInvestmentProperty ? formatCurrency(assets.investmentPropertyValue) : "No" },
-        { label: "Income Streams", value: assets.hasIncomeStreams ? `${formatCurrency(assets.incomeStreamsAmount)}/year` : "No" }
-      ]
+        {
+          label: "Super Balance",
+          value: formatCurrency(personalInfo.superBalance),
+        },
+        {
+          label: "Bank Money",
+          value: assets.hasBankMoney
+            ? formatCurrency(assets.bankMoneyAmount)
+            : "No",
+        },
+        {
+          label: "Shares/Investments",
+          value: assets.hasShares ? formatCurrency(assets.sharesValue) : "No",
+        },
+        {
+          label: "Investment Property",
+          value: assets.hasInvestmentProperty
+            ? formatCurrency(assets.investmentPropertyValue)
+            : "No",
+        },
+        {
+          label: "Income Streams",
+          value: assets.hasIncomeStreams
+            ? `${formatCurrency(assets.incomeStreamsAmount)}/year`
+            : "No",
+        },
+      ],
     },
     {
       title: "Age Pension Information",
       items: [
-        { label: "Home Ownership", value: pensionData.homeOwnership || "Not provided" },
-        { label: "Other Assets", value: formatCurrency(pensionData.otherAssets) },
-        { label: "Combined Income", value: formatCurrency(pensionData.combinedIncome) }
-      ]
+        {
+          label: "Home Ownership",
+          value: pensionData.homeOwnership || "Not provided",
+        },
+        {
+          label: "Other Assets",
+          value: formatCurrency(pensionData.otherAssets),
+        },
+        {
+          label: "Combined Income",
+          value: formatCurrency(pensionData.combinedIncome),
+        },
+      ],
     },
     {
       title: "Your Retirement Income Plan",
       highlight: true,
       items: [
-        { label: "Age Pension Eligibility", value: calculations.pensionEligibility || "Not calculated" },
-        { label: "Estimated Age Pension", value: `${formatCurrency(calculations.estimatedPension)}/year` },
-        { label: "Recommended Pre-Mix", value: `Option ${calculations.recommendedPreMix}` || "Not determined" },
-        { label: "Lifetime Income", value: `${formatCurrency(calculations.lifetimeIncome)}/year` },
-        { label: "Choice Income", value: `${formatCurrency(calculations.choiceIncome)}/year` },
-        { label: "Total Annual Income", value: `${formatCurrency(calculations.totalRetirementIncome)}/year`, highlight: true }
-      ]
-    }
-  ]
+        {
+          label: "Age Pension Eligibility",
+          value: calculations.pensionEligibility || "Not calculated",
+        },
+        {
+          label: "Estimated Age Pension",
+          value: `${formatCurrency(calculations.estimatedPension)}/year`,
+        },
+        {
+          label: "Recommended Pre-Mix",
+          value: `Option ${calculations.recommendedPreMix}` || "Not determined",
+        },
+        {
+          label: "Lifetime Income",
+          value: `${formatCurrency(calculations.lifetimeIncome)}/year`,
+        },
+        {
+          label: "Choice Income",
+          value: `${formatCurrency(calculations.choiceIncome)}/year`,
+        },
+        {
+          label: "Total Annual Income",
+          value: `${formatCurrency(calculations.totalRetirementIncome)}/year`,
+          highlight: true,
+        },
+      ],
+    },
+  ];
 
   const handleDownload = () => {
     // Generate PDF or download functionality
-    console.log("Downloading summary...")
-  }
+    console.log("Downloading summary...");
+  };
 
   const handlePrint = () => {
-    window.print()
-  }
+    window.print();
+  };
 
   return (
     <div className="min-h-[calc(100vh-16rem)] px-4 py-12">
@@ -102,8 +175,8 @@ export default function SummaryReview() {
             key={section.title}
             className={`p-8 rounded-3xl ${
               section.highlight
-                ? 'bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary'
-                : 'bg-card border-2 border-border'
+                ? "bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary"
+                : "bg-card border-2 border-border"
             }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,14 +189,18 @@ export default function SummaryReview() {
                   key={index}
                   className={`flex justify-between items-center py-3 px-4 rounded-lg ${
                     item.highlight
-                      ? 'bg-primary/20 border border-primary'
-                      : 'bg-background/50'
+                      ? "bg-primary/20 border border-primary"
+                      : "bg-background/50"
                   }`}
                 >
                   <span className="text-muted-foreground">{item.label}:</span>
-                  <span className={`font-semibold ${
-                    item.highlight ? 'text-primary text-xl' : 'text-foreground'
-                  }`}>
+                  <span
+                    className={`font-semibold ${
+                      item.highlight
+                        ? "text-primary text-xl"
+                        : "text-foreground"
+                    }`}
+                  >
                     {item.value}
                   </span>
                 </div>
@@ -154,16 +231,7 @@ export default function SummaryReview() {
             Print Summary
           </Button>
         </motion.div>
-
-        <motion.p
-          className="text-center text-sm text-muted-foreground"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          This summary is for your reference. A specialist will contact you to finalize your retirement plan.
-        </motion.p>
       </motion.div>
     </div>
-  )
+  );
 }

@@ -5,16 +5,10 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/calculator/AnimatedCounter";
 import IncomeBreakdownChart from "@/components/calculator/IncomeBreakdownChart";
 import { useCalculatorStore } from "@/store/calculatorStore";
-import {
-  getAllocationByProduct,
-  calculateAnnualChoiceIncome
-} from "@/lib/calculations";
 
 export default function FinalIncomeDisplay() {
   const {
-    setCalculations,
     calculations,
-    personalInfo,
     setCurrentStepValid
   } = useCalculatorStore();
 
@@ -24,75 +18,14 @@ export default function FinalIncomeDisplay() {
   }, [setCurrentStepValid]);
 
   useEffect(() => {
-    // Only calculate choice income if we haven't already
-    if (!calculations.choiceIncome && calculations.lifetimeIncome) {
-      console.group('📊 FinalIncomeDisplay - Total Income Calculation');
-      console.log('=====================================');
-
-      const superBalance = personalInfo.superBalance || 500000;
-      const product = calculations.recommendedPreMix || 'B';
-
-      console.group('🎯 Input Values');
-      console.table({
-        'Super Balance': `$${superBalance.toLocaleString()}`,
-        'Product': product,
-        'Age': personalInfo.age || 67,
-        'Lifetime Income': `$${(calculations.lifetimeIncome || 0).toLocaleString()}/year`,
-        'Adjusted Pension': `$${(calculations.adjustedPensionAmount || calculations.estimatedPension || 0).toLocaleString()}/year`
-      });
-      console.groupEnd();
-
-      // Get allocation based on product recommendation
-      const allocation = getAllocationByProduct(product, superBalance);
-
-      // Calculate income streams
-      const retirementYears = personalInfo.retirementYears ||
-        (personalInfo.expectedLongevity || 85) - (personalInfo.age || 67);
-
-      console.log('Retirement Years:', retirementYears);
-
-      const annualChoiceIncome = calculateAnnualChoiceIncome(
-        allocation.choiceAmount,
-        personalInfo.age || 67,
-        retirementYears
-      );
-
-      console.group('💸 Income Components');
-      console.table({
-        'Choice Income': `$${Math.round(annualChoiceIncome).toLocaleString()}/year`,
-        'Lifetime Income': `$${(calculations.lifetimeIncome || 0).toLocaleString()}/year`,
-        'Age Pension': `$${(calculations.adjustedPensionAmount || calculations.estimatedPension || 0).toLocaleString()}/year`
-      });
-      console.groupEnd();
-
-      // Total income = choice + lifetime + adjusted pension
-      const totalIncome = annualChoiceIncome +
-                         (calculations.lifetimeIncome || 0) +
-                         (calculations.adjustedPensionAmount || calculations.estimatedPension || 0);
-
-      console.group('🎉 Total Retirement Income');
-      console.log('Total:', `$${Math.round(totalIncome).toLocaleString()}/year`);
-      console.groupEnd();
-
-      setCalculations({
-        choiceIncome: Math.round(annualChoiceIncome),
-        totalRetirementIncome: Math.round(totalIncome),
-        // Note: incomeIncreaseWithAS should be calculated in AgePensionResult
-      });
-
-      console.log('✅ Final calculations stored');
-      console.groupEnd();
-      console.log('=====================================\n');
-    }
-  }, [
-    calculations.lifetimeIncome,
-    calculations.choiceIncome,
-    calculations.recommendedPreMix,
-    calculations.estimatedPension,
-    calculations.adjustedPensionAmount,
-    personalInfo,
-    setCalculations
-  ]); // Re-calculate when inputs change
+    console.group('📊 FinalIncomeDisplay - Using Pre-Calculated Values');
+    console.log('Total Retirement Income:', `$${(calculations.totalRetirementIncome || 0).toLocaleString()}/year`);
+    console.log('Choice Income:', `$${(calculations.choiceIncome || 0).toLocaleString()}/year`);
+    console.log('Lifetime Income:', `$${(calculations.lifetimeIncome || 0).toLocaleString()}/year`);
+    console.log('Adjusted Pension:', `$${(calculations.adjustedPensionAmount || 0).toLocaleString()}/year`);
+    console.log('Pension Increase:', `$${(calculations.incomeIncreaseWithAS || 0).toLocaleString()}/year`);
+    console.groupEnd();
+  }, [calculations]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4 py-12">
@@ -149,7 +82,7 @@ export default function FinalIncomeDisplay() {
           <IncomeBreakdownChart
             lifetimeIncome={calculations.lifetimeIncome || 0}
             choiceIncome={calculations.choiceIncome || 0}
-            agePension={(calculations.estimatedPension || 0) + (calculations.incomeIncreaseWithAS || 0)}
+            agePension={calculations.adjustedPensionAmount || 0}
           />
         </motion.div>
 

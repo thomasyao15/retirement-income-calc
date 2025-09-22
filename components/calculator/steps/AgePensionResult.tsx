@@ -4,13 +4,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/calculator/AnimatedCounter";
 import { useCalculatorStore } from "@/store/calculatorStore";
-import {
-  calculatePension,
-  annualToFortnightly,
-  sumAssets,
-  mapRelationshipStatus,
-  getProductRecommendation
-} from "@/lib/calculations";
+import { calculateRetirementIncome } from "@/lib/calculationService";
 
 export default function AgePensionResult() {
   const {
@@ -28,93 +22,63 @@ export default function AgePensionResult() {
   }, [setCurrentStepValid]);
 
   useEffect(() => {
-    console.group('🧮 AgePensionResult - Initial Pension Calculation');
-    console.log('=====================================');
+    console.group('🧮 AgePensionResult - Running Centralized Calculations');
 
-    // Log input values
-    console.group('📊 Input Values');
-    console.table({
-      'Age': personalInfo.age || 67,
-      'Gender': personalInfo.gender,
-      'Relationship': personalInfo.relationshipStatus,
-      'Super Balance': `$${(personalInfo.superBalance || 0).toLocaleString()}`,
-      'Home Ownership': pensionData.homeOwnership,
-      'Combined Income (annual)': `$${(pensionData.combinedIncome || 0).toLocaleString()}`,
-      'Other Assets': `$${(pensionData.otherAssets || 0).toLocaleString()}`
-    });
+    // Prepare data for calculation service
+    const calculatorData = {
+      // Personal Info
+      age: personalInfo.age,
+      gender: personalInfo.gender,
+      retirementYears: personalInfo.retirementYears,
+      expectedLongevity: personalInfo.expectedLongevity,
+      superBalance: personalInfo.superBalance,
+      relationshipStatus: personalInfo.relationshipStatus,
 
-    console.group('Asset Breakdown');
-    console.table({
-      'Bank Money': `$${(assets.bankMoneyAmount || 0).toLocaleString()}`,
-      'Shares Value': `$${(assets.sharesValue || 0).toLocaleString()}`,
-      'Investment Property': `$${(assets.investmentPropertyValue || 0).toLocaleString()}`
-    });
-    console.groupEnd();
-    console.groupEnd();
+      // Assets
+      hasBankMoney: assets.hasBankMoney,
+      bankMoneyAmount: assets.bankMoneyAmount,
+      hasShares: assets.hasShares,
+      sharesValue: assets.sharesValue,
+      hasInvestmentProperty: assets.hasInvestmentProperty,
+      investmentPropertyValue: assets.investmentPropertyValue,
+      hasIncomeStreams: assets.hasIncomeStreams,
+      incomeStreamsAmount: assets.incomeStreamsAmount,
 
-    // Calculate total non-super assets
-    const nonSuperAssets = sumAssets(assets) + (pensionData.otherAssets || 0);
-    const totalAssets = nonSuperAssets + (personalInfo.superBalance || 0);
-
-    console.group('🔢 Asset Calculations');
-    console.log('Non-Super Assets:', `$${nonSuperAssets.toLocaleString()}`);
-    console.log('Super Balance:', `$${(personalInfo.superBalance || 0).toLocaleString()}`);
-    console.log('Total Assets:', `$${totalAssets.toLocaleString()}`);
-    console.groupEnd();
-
-    // Convert annual income to fortnightly
-    const fortnightlyIncome = annualToFortnightly(pensionData.combinedIncome || 0);
-
-    console.group('💰 Income Calculations');
-    console.log('Annual Income:', `$${(pensionData.combinedIncome || 0).toLocaleString()}`);
-    console.log('Fortnightly Income:', `$${fortnightlyIncome.toFixed(2)}`);
-    console.groupEnd();
-
-    // Calculate pension
-    const pensionParams = {
-      age: personalInfo.age || 67,
-      relationshipStatus: mapRelationshipStatus(personalInfo.relationshipStatus),
-      homeOwner: pensionData.homeOwnership === 'yes',
-      incomePerFortnight: fortnightlyIncome,
-      totalAssets: totalAssets
+      // Pension Data
+      homeOwnership: pensionData.homeOwnership,
+      otherAssets: pensionData.otherAssets,
+      combinedIncome: pensionData.combinedIncome
     };
 
-    console.group('🏛️ Pension Parameters');
-    console.table(pensionParams);
-    console.groupEnd();
+    // Run centralized calculations
+    const results = calculateRetirementIncome(calculatorData);
 
-    const result = calculatePension(pensionParams);
-
-    console.group('📈 Pension Calculation Results');
-    console.table({
-      'Income Test Pension': `$${result.incomeTestPension.toFixed(2)}/year`,
-      'Asset Test Pension': `$${result.assetTestPension.toFixed(2)}/year`,
-      'Final Pension (lower of two)': `$${result.finalPension.toFixed(2)}/year`,
-      'Pension Percentage': `${result.pensionPercentage.toFixed(1)}%`,
-      'Eligibility': result.eligibility
-    });
-    console.groupEnd();
-
-    // Get product recommendation
-    const recommendedProduct = getProductRecommendation(result.pensionPercentage);
-
-    console.group('🎯 Product Recommendation');
-    console.log('Pension Percentage:', `${result.pensionPercentage.toFixed(1)}%`);
-    console.log('Recommended Product:', recommendedProduct);
-    console.groupEnd();
-
-    // Store the INITIAL pension (before LTI discount)
+    // Store ALL results in the store for other components to use
     setCalculations({
-      estimatedPension: result.finalPension,
-      pensionEligibility: result.eligibility,
-      recommendedPreMix: recommendedProduct,
-      // Store initial pension for comparison later
-      incomeIncreaseWithAS: 0  // Will be calculated after LTI discount
+      // Initial pension (before LTI)
+      estimatedPension: results.initialPension,
+      initialAssets: results.initialTotalAssets,
+
+      // Adjusted values (after LTI)
+      adjustedAssets: results.adjustedTotalAssets,
+      adjustedPensionAmount: results.adjustedPension,
+      incomeIncreaseWithAS: results.pensionIncrease,
+
+      // Income streams
+      lifetimeIncome: Math.round(results.lifetimeIncomeAnnual),
+      choiceIncome: Math.round(results.choiceIncomeAnnual),
+
+      // Totals
+      totalRetirementIncome: Math.round(results.totalRetirementIncome),
+      safetyNetAmount: Math.round(results.safetyNetAmount),
+
+      // Product and eligibility
+      pensionEligibility: results.eligibility,
+      recommendedPreMix: results.recommendedProduct
     });
 
-    console.log('✅ Stored initial pension:', `$${result.finalPension.toFixed(2)}/year`);
+    console.log('✅ All calculations stored in state');
     console.groupEnd();
-    console.log('=====================================\n');
   }, [personalInfo, assets, pensionData, setCalculations]);
 
   const eligibilityText = {

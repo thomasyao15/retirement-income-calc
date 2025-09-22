@@ -21,7 +21,9 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
     stepCount,
   } = useWizard();
 
-  const currentStepValid = useCalculatorStore(state => state.currentStepValid);
+  const currentStepValid = useCalculatorStore(
+    (state) => state.currentStepValid
+  );
   const [showError, setShowError] = useState(false);
 
   const handleNext = async () => {
@@ -44,9 +46,6 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
     100,
     Math.round(((activeStep + 1) / stepCount) * 100)
   );
-
-  // Debug logging to see what values we're getting
-  console.log("Progress debug:", { activeStep, stepCount, progress });
 
   return (
     <>
@@ -88,9 +87,10 @@ export default function WizardFooter({ onNext }: WizardFooterProps) {
               text-lg md:text-xl font-medium
               rounded-full
               transition-all duration-200
-              ${currentStepValid
-                ? 'bg-primary hover:bg-primary/90 text-primary-foreground hover:scale-105 active:scale-95'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              ${
+                currentStepValid
+                  ? "bg-primary hover:bg-primary/90 text-primary-foreground hover:scale-105 active:scale-95"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }
             `}
             >

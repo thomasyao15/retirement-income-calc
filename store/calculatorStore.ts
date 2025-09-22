@@ -34,16 +34,27 @@ interface PensionData {
 }
 
 interface Calculations {
+  // Initial pension calculations (before LTI)
   estimatedPension?: number
+  initialAssets?: number
+
+  // Adjusted calculations (after LTI)
+  adjustedAssets?: number
+  adjustedPensionAmount?: number
+  incomeIncreaseWithAS?: number
+
+  // Income streams
+  lifetimeIncome?: number
+  choiceIncome?: number
+
+  // Totals
+  totalRetirementIncome?: number
+  safetyNetAmount?: number
+
+  // Product and eligibility
   pensionEligibility?: 'not-eligible' | 'partial' | 'full'
   recommendedPreMix?: 'A' | 'B' | 'C' | 'D'
   projectedIncome?: number
-  lifetimeIncome?: number
-  choiceIncome?: number
-  totalRetirementIncome?: number
-  safetyNetAmount?: number
-  incomeIncreaseWithAS?: number
-  adjustedPensionAmount?: number
 }
 
 interface CalculatorState {
