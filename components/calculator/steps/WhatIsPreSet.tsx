@@ -25,7 +25,7 @@ export default function WhatIsPreSet() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          What is a PreSet?
+          Your Personalised Income Mix
         </motion.h1>
 
         <motion.p
@@ -34,7 +34,7 @@ export default function WhatIsPreSet() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          How we help members to maximise their retirement income & lifestyle
+          We've designed a PreSet strategy that combines three income sources to give you the best possible retirement
         </motion.p>
 
         {/* Main layout container */}
@@ -60,8 +60,8 @@ export default function WhatIsPreSet() {
               transition={{ delay: 1.2 }}
             >
               <p className="text-base text-muted-foreground">
-                Income for different lifestyle preferences e.g. Travelling,
-                looking after grandchildren, starting a passion project
+                For the things you love - travel, hobbies,
+                helping your grandchildren, or that passion project you've always dreamed about
               </p>
             </motion.div>
           </div>
@@ -97,8 +97,8 @@ export default function WhatIsPreSet() {
               transition={{ delay: 1.3 }}
             >
               <p className="text-base text-muted-foreground">
-                Supplement the aged pension for expenses. Increase the amount of
-                Age Pension you can receive
+                Guaranteed income for life that also helps boost
+                your Age Pension - giving you more money overall
               </p>
             </motion.div>
           </div>
@@ -132,7 +132,8 @@ export default function WhatIsPreSet() {
               transition={{ delay: 1.4 }}
             >
               <p className="text-base text-muted-foreground">
-                Income for core expenses e.g. food, electricity
+                Your government entitlement for essential expenses
+                like groceries, utilities and everyday needs
               </p>
             </motion.div>
           </div>
@@ -186,7 +187,8 @@ export default function WhatIsPreSet() {
               transition={{ delay: 1.6 }}
             >
               <p className="text-base text-muted-foreground">
-                These three income streams work together
+                All three work together seamlessly to give you
+                confidence and freedom in retirement
               </p>
             </motion.div>
           </div>
