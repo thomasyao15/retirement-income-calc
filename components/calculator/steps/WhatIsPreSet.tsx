@@ -11,40 +11,6 @@ export default function WhatIsPreSet() {
     setCurrentStepValid(true);
   }, [setCurrentStepValid]);
 
-  const incomeStreams = [
-    {
-      title: "Choice Income",
-      color: "bg-orange-100",
-      borderColor: "border-orange-300",
-      textColor: "text-orange-700",
-      description:
-        "Income for different lifestyle preferences e.g. Travelling, looking after grandchildren, starting a passion project",
-    },
-    {
-      title: "Lifetime Income",
-      color: "bg-purple-100",
-      borderColor: "border-purple-300",
-      textColor: "text-purple-700",
-      description:
-        "Supplement the aged pension for expenses. Increase the amount of Age Pension a member can receive",
-    },
-    {
-      title: "Age Pension",
-      color: "bg-gray-100",
-      borderColor: "border-gray-300",
-      textColor: "text-gray-700",
-      description: "Income for core expenses e.g. food, electricity",
-    },
-  ];
-
-  const resultStream = {
-    title: "Retirement Income",
-    color: "bg-gradient-to-r from-orange-100 via-purple-100 to-orange-100",
-    borderColor: "border-primary",
-    textColor: "text-primary",
-    description: "These three streams work together",
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
       <motion.div
@@ -93,7 +59,7 @@ export default function WhatIsPreSet() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
             >
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Income for different lifestyle preferences e.g. Travelling,
                 looking after grandchildren, starting a passion project
               </p>
@@ -130,9 +96,9 @@ export default function WhatIsPreSet() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3 }}
             >
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Supplement the aged pension for expenses. Increase the amount of
-                Age Pension a member can receive
+                Age Pension you can receive
               </p>
             </motion.div>
           </div>
@@ -165,7 +131,7 @@ export default function WhatIsPreSet() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4 }}
             >
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Income for core expenses e.g. food, electricity
               </p>
             </motion.div>
@@ -184,12 +150,30 @@ export default function WhatIsPreSet() {
           {/* Retirement Income */}
           <div className="flex flex-col items-center gap-6">
             <motion.div
-              className="relative p-6 rounded-full w-48 h-48 flex flex-col items-center justify-center bg-gradient-to-r from-orange-100 via-purple-100 to-orange-100 border-primary border-4"
+              className="relative p-6 rounded-full w-48 h-48 flex flex-col items-center justify-center bg-orange-100 border-orange-500 border-4"
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.4 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                boxShadow: [
+                  "0 0 0 0 rgba(251, 146, 60, 0)",
+                  "0 0 0 10px rgba(251, 146, 60, 0.3)",
+                  "0 0 0 20px rgba(251, 146, 60, 0)",
+                ],
+              }}
+              transition={{
+                delay: 1.4,
+                scale: {
+                  duration: 0.5,
+                },
+                boxShadow: {
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: 2,
+                },
+              }}
             >
-              <h3 className="text-lg font-bold text-primary text-center">
+              <h3 className="text-lg font-bold text-orange-700 text-center">
                 Retirement
                 <br />
                 Income
@@ -201,8 +185,8 @@ export default function WhatIsPreSet() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.6 }}
             >
-              <p className="text-sm text-muted-foreground">
-                These three streams work together
+              <p className="text-base text-muted-foreground">
+                These three income streams work together
               </p>
             </motion.div>
           </div>
