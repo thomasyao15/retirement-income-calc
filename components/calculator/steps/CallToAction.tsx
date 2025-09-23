@@ -11,17 +11,12 @@ import { useCalculatorStore } from "@/store/calculatorStore";
 export default function CallToAction() {
   const router = useRouter();
   const { nextStep } = useWizard();
-  const { setCurrentStepValid } = useCalculatorStore();
+  const { setCurrentStepValid, calculations } = useCalculatorStore();
 
   useEffect(() => {
     // CTA page is always valid
     setCurrentStepValid(true);
   }, [setCurrentStepValid]);
-
-  const handleGenerateForm = () => {
-    // Move to summary page
-    nextStep();
-  };
 
   const handleCallAdvisor = () => {
     // Could trigger phone call or show contact modal
@@ -30,26 +25,26 @@ export default function CallToAction() {
 
   const steps = [
     {
-      title: "Download your personalised report",
+      title: "Log in to your member portal",
       description:
-        "Get your pre-filled application with all your retirement income projections",
+        "Access your AustralianSuper account online to manage your retirement settings",
     },
     {
-      title: "Speak with a retirement specialist",
+      title: `Select PreSet ${calculations.recommendedPreMix || "C"}`,
       description:
-        "Free consultation to review your options and answer any questions",
+        "Choose the recommended PreSet option from your retirement income settings",
     },
     {
-      title: "Activate your retirement income",
+      title: "Download your pre-filled form",
       description:
-        "Start receiving your optimised payments and enjoy financial security",
+        "Get your personalised application with all your details already completed",
     },
   ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
       <motion.div
-        className="text-center space-y-8 max-w-4xl"
+        className="text-center space-y-8 max-w-7xl flex flex-col items-center w-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -63,50 +58,33 @@ export default function CallToAction() {
           Ready to secure your retirement?
         </motion.h1>
 
-        <motion.p
-          className="text-2xl md:text-3xl text-muted-foreground"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          Take the next step towards your financial freedom
-        </motion.p>
-
+        {/* Recommended PreSet Badge */}
         <motion.div
-          className="flex flex-col md:flex-row gap-6 justify-center items-center pt-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="my-8"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <Button
-            onClick={handleGenerateForm}
-            size="lg"
-            className="text-xl px-12 py-8 h-auto rounded-full bg-primary hover:bg-primary/90 min-w-[280px]"
-          >
-            Generate Pre-filled Form
-          </Button>
-
-          <Button
-            onClick={handleCallAdvisor}
-            size="lg"
-            variant="outline"
-            className="text-xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 min-w-[280px] flex items-center gap-3"
-          >
-            <Phone className="w-6 h-6" />
-            Call a Financial Advisor
-          </Button>
+          <div className="inline-flex flex-col items-center p-8 bg-orange-50 border-4 border-orange-400 rounded-3xl">
+            <p className="text-2xl font-bold text-orange-600 mb-2">
+              We recommend you use
+            </p>
+            <div className="text-6xl font-bold text-orange-600">
+              PreSet {calculations.recommendedPreMix || "C"}
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
-          className="mt-16 p-8 bg-card border-2 border-border rounded-3xl"
+          className="p-8 px-14 bg-card border-2 border-border rounded-3xl max-w-4xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <h3 className="text-2xl font-bold mb-8">What happens next?</h3>
+          <h3 className="text-2xl font-bold mb-8">Next Steps</h3>
 
           {/* Vertical Stepper */}
-          <div className="flex flex-col gap-8 max-w-2xl mx-auto">
+          <div className="flex flex-col gap-8 max-w-3xl mx-auto">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
@@ -162,6 +140,24 @@ export default function CallToAction() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Call Financial Advisor Button */}
+        <motion.div
+          className="mt-2 flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+        >
+          <Button
+            onClick={handleCallAdvisor}
+            size="lg"
+            variant="outline"
+            className="text-xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 min-w-[320px] flex items-center gap-3"
+          >
+            <Phone className="w-6 h-6" />
+            Call a Financial Advisor
+          </Button>
         </motion.div>
       </motion.div>
     </div>
