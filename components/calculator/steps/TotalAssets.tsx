@@ -6,11 +6,11 @@ import QuestionLayout from "@/components/calculator/QuestionLayout"
 import CurrencyInput from "@/components/calculator/inputs/CurrencyInput"
 import { useCalculatorStore } from "@/store/calculatorStore"
 
-export default function OtherAssets() {
+export default function TotalAssets() {
   const { nextStep } = useWizard()
-  const { pensionData, updatePensionData, setCurrentStepValid } = useCalculatorStore()
+  const { personalInfo, updatePersonalInfo, setCurrentStepValid } = useCalculatorStore()
   const [amount, setAmount] = useState<number | undefined>(
-    pensionData.otherAssets !== undefined ? pensionData.otherAssets : undefined
+    personalInfo.totalAssets !== undefined ? personalInfo.totalAssets : undefined
   )
 
   useEffect(() => {
@@ -19,14 +19,14 @@ export default function OtherAssets() {
     setCurrentStepValid(isValid)
 
     if (amount !== undefined) {
-      updatePensionData({ otherAssets: amount })
+      updatePersonalInfo({ totalAssets: amount })
     }
-  }, [amount, updatePensionData, setCurrentStepValid])
+  }, [amount, updatePersonalInfo, setCurrentStepValid])
 
   return (
     <QuestionLayout
-      question="Do you have any other assets?"
-      subtitle="Include vehicles, boats, collectibles, and other valuable items"
+      question="What are your total assets outside of super?"
+      subtitle="Include bank accounts, shares, investment properties, vehicles, collectibles, and any other valuable assets you own"
     >
       <CurrencyInput
         value={amount}

@@ -14,14 +14,11 @@ import Gender from "@/components/calculator/steps/Gender";
 import RelationshipStatus from "@/components/calculator/steps/RelationshipStatus";
 import ExpectedLongevity from "@/components/calculator/steps/ExpectedLongevity";
 import SuperBalance from "@/components/calculator/steps/SuperBalance";
-import BankMoney from "@/components/calculator/steps/BankMoney";
-import SharesInvestment from "@/components/calculator/steps/SharesInvestment";
-import InvestmentProperty from "@/components/calculator/steps/InvestmentProperty";
+import TotalAssets from "@/components/calculator/steps/TotalAssets";
 
 // Step components - Age Pension
 import AgePensionIntro from "@/components/calculator/steps/AgePensionIntro";
 import HomeOwnership from "@/components/calculator/steps/HomeOwnership";
-import OtherAssets from "@/components/calculator/steps/OtherAssets";
 import CombinedIncome from "@/components/calculator/steps/CombinedIncome";
 import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 
@@ -67,9 +64,7 @@ export default function CalculatorPage() {
           <RelationshipStatus />
           <ExpectedLongevity />
           <SuperBalance />
-          <BankMoney />
-          <SharesInvestment />
-          <InvestmentProperty />
+          <TotalAssets />
 
           {/* Section 1 Complete */}
           <Section1Checkpoint />
@@ -77,7 +72,6 @@ export default function CalculatorPage() {
           {/* Section 2: Age Pension */}
           <AgePensionIntro />
           <HomeOwnership />
-          <OtherAssets />
           <CombinedIncome />
           <AgePensionResult />
 

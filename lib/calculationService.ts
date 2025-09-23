@@ -11,7 +11,6 @@ import {
   calculateLifetimeIncomeAnnual,
   calculateAnnualChoiceIncome,
   annualToFortnightly,
-  sumAssets,
   mapRelationshipStatus,
   type PensionParams,
   type AllocationResult
@@ -25,20 +24,14 @@ export interface CalculatorData {
   expectedLongevity?: number;
   superBalance?: number;
   relationshipStatus?: string;
+  totalAssets?: number;
 
   // Assets
-  hasBankMoney?: boolean;
-  bankMoneyAmount?: number;
-  hasShares?: boolean;
-  sharesValue?: number;
-  hasInvestmentProperty?: boolean;
-  investmentPropertyValue?: number;
   hasIncomeStreams?: boolean;
   incomeStreamsAmount?: number;
 
   // Pension Data
   homeOwnership?: string;
-  otherAssets?: number;
   combinedIncome?: number;
 }
 
@@ -91,20 +84,11 @@ export function calculateRetirementIncome(data: CalculatorData): RetirementCalcu
   console.log('=====================================');
 
   // 1. Calculate total assets
-  const nonSuperAssets = sumAssets({
-    bankMoneyAmount: data.bankMoneyAmount,
-    sharesValue: data.sharesValue,
-    investmentPropertyValue: data.investmentPropertyValue,
-  }) + (data.otherAssets || 0);
-
+  const nonSuperAssets = data.totalAssets || 0;
   const superBalance = data.superBalance || 0;
   const initialTotalAssets = nonSuperAssets + superBalance;
 
   console.group('📊 Asset Calculations');
-  console.log('Bank Money:', `$${(data.bankMoneyAmount || 0).toLocaleString()}`);
-  console.log('Shares:', `$${(data.sharesValue || 0).toLocaleString()}`);
-  console.log('Investment Property:', `$${(data.investmentPropertyValue || 0).toLocaleString()}`);
-  console.log('Other Assets:', `$${(data.otherAssets || 0).toLocaleString()}`);
   console.log('Non-Super Assets:', `$${nonSuperAssets.toLocaleString()}`);
   console.log('Super Balance:', `$${superBalance.toLocaleString()}`);
   console.log('Initial Total Assets:', `$${initialTotalAssets.toLocaleString()}`);

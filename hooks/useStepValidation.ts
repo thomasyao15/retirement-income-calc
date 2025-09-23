@@ -20,32 +20,12 @@ export function useStepValidation(stepName: string) {
       case "superBalance":
         return personalInfo.superBalance !== undefined && personalInfo.superBalance >= 0;
 
-      case "bankMoney":
-        // If they said yes, they must enter an amount
-        if (assets.hasBankMoney === true) {
-          return assets.bankMoneyAmount !== undefined && assets.bankMoneyAmount > 0;
-        }
-        // Must answer yes/no
-        return assets.hasBankMoney !== undefined;
-
-      case "sharesInvestment":
-        if (assets.hasShares === true) {
-          return assets.sharesValue !== undefined && assets.sharesValue > 0;
-        }
-        return assets.hasShares !== undefined;
-
-      case "investmentProperty":
-        if (assets.hasInvestmentProperty === true) {
-          return assets.investmentPropertyValue !== undefined && assets.investmentPropertyValue > 0;
-        }
-        return assets.hasInvestmentProperty !== undefined;
+      case "totalAssets":
+        // Total assets can be 0, but must be defined
+        return personalInfo.totalAssets !== undefined && personalInfo.totalAssets >= 0;
 
       case "homeOwnership":
         return pensionData.homeOwnership !== undefined && pensionData.homeOwnership !== "";
-
-      case "otherAssets":
-        // Other assets can be 0, but must be defined
-        return pensionData.otherAssets !== undefined;
 
       case "combinedIncome":
         // Income can be 0, but must be defined

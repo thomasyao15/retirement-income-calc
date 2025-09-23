@@ -66,20 +66,8 @@ export default function SummaryReview() {
           value: formatCurrency(personalInfo.superBalance),
         },
         {
-          label: "Bank Money",
-          value: assets.hasBankMoney
-            ? formatCurrency(assets.bankMoneyAmount)
-            : "No",
-        },
-        {
-          label: "Shares/Investments",
-          value: assets.hasShares ? formatCurrency(assets.sharesValue) : "No",
-        },
-        {
-          label: "Investment Property",
-          value: assets.hasInvestmentProperty
-            ? formatCurrency(assets.investmentPropertyValue)
-            : "No",
+          label: "Total Assets (outside super)",
+          value: formatCurrency(personalInfo.totalAssets),
         },
         {
           label: "Income Streams",
@@ -95,10 +83,6 @@ export default function SummaryReview() {
         {
           label: "Home Ownership",
           value: pensionData.homeOwnership || "Not provided",
-        },
-        {
-          label: "Other Assets",
-          value: formatCurrency(pensionData.otherAssets),
         },
         {
           label: "Combined Income",

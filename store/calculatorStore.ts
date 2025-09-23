@@ -8,27 +8,16 @@ interface PersonalInfo {
   expectedLongevity?: number
   superBalance?: number
   relationshipStatus?: string
+  totalAssets?: number
 }
 
 interface Assets {
-  hasBankMoney?: boolean
-  bankMoneyAmount?: number
-  hasShares?: boolean
-  sharesValue?: number
-  hasInvestmentProperty?: boolean
-  investmentPropertyValue?: number
   hasIncomeStreams?: boolean
   incomeStreamsAmount?: number
-  ownsStocks?: boolean
-  stockValue?: number
-  stockDividends?: number
-  ownsProperty?: boolean
-  propertyValue?: number
 }
 
 interface PensionData {
   homeOwnership?: string
-  otherAssets?: number
   combinedIncome?: number
   incomeStreams?: number
 }

@@ -501,43 +501,6 @@ export function calculateLifetimeIncomeAnnual(
   return result;
 }
 
-/**
- * Sums all non-superannuation assets from the calculator store.
- *
- * Includes:
- * - Bank accounts and cash
- * - Shares and managed funds
- * - Investment properties
- * - Other investments
- *
- * Does NOT include:
- * - Superannuation (added separately)
- * - Primary residence (exempt from means test)
- *
- * @param assets - Asset values from calculator store
- * @returns Total non-super assessable assets
- * @example
- * sumAssets({
- *   bankMoneyAmount: 50000,
- *   sharesValue: 100000,
- *   investmentPropertyValue: 300000
- * }) // returns 450000
- */
-export function sumAssets(assets: {
-  bankMoneyAmount?: number;
-  sharesValue?: number;
-  investmentPropertyValue?: number;
-  stockValue?: number;
-  propertyValue?: number;
-}): number {
-  return (
-    (assets.bankMoneyAmount || 0) +
-    (assets.sharesValue || 0) +
-    (assets.investmentPropertyValue || 0) +
-    (assets.stockValue || 0) +
-    (assets.propertyValue || 0)
-  );
-}
 
 /**
  * Maps relationship status from UI options to calculation format.

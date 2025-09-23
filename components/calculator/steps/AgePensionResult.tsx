@@ -33,20 +33,14 @@ export default function AgePensionResult() {
       expectedLongevity: personalInfo.expectedLongevity,
       superBalance: personalInfo.superBalance,
       relationshipStatus: personalInfo.relationshipStatus,
+      totalAssets: personalInfo.totalAssets,
 
       // Assets
-      hasBankMoney: assets.hasBankMoney,
-      bankMoneyAmount: assets.bankMoneyAmount,
-      hasShares: assets.hasShares,
-      sharesValue: assets.sharesValue,
-      hasInvestmentProperty: assets.hasInvestmentProperty,
-      investmentPropertyValue: assets.investmentPropertyValue,
       hasIncomeStreams: assets.hasIncomeStreams,
       incomeStreamsAmount: assets.incomeStreamsAmount,
 
       // Pension Data
       homeOwnership: pensionData.homeOwnership,
-      otherAssets: pensionData.otherAssets,
       combinedIncome: pensionData.combinedIncome,
     };
 
