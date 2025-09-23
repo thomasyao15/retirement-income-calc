@@ -24,7 +24,6 @@ import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 
 // Step components - Pre-Mix Recommendation
 import PreMixIntro from "@/components/calculator/steps/PreMixIntro";
-import WhatIsPreSet from "@/components/calculator/steps/WhatIsPreSet";
 import UnderstandingOptions from "@/components/calculator/steps/UnderstandingOptions";
 import FinalIncomeDisplay from "@/components/calculator/steps/FinalIncomeDisplay";
 import CallToAction from "@/components/calculator/steps/CallToAction";
@@ -79,7 +78,6 @@ export default function CalculatorPage() {
 
           {/* Section 3: Pre-Mix Recommendation */}
           <PreMixIntro />
-          <WhatIsPreSet />
           <UnderstandingOptions />
           <FinalIncomeDisplay />
           <CallToAction />
