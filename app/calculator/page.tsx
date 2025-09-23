@@ -26,7 +26,6 @@ import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 import PreMixIntro from "@/components/calculator/steps/PreMixIntro";
 import WhatIsPreSet from "@/components/calculator/steps/WhatIsPreSet";
 import UnderstandingOptions from "@/components/calculator/steps/UnderstandingOptions";
-import SafetyNetDisplay from "@/components/calculator/steps/SafetyNetDisplay";
 import FinalIncomeDisplay from "@/components/calculator/steps/FinalIncomeDisplay";
 import CallToAction from "@/components/calculator/steps/CallToAction";
 import SummaryReview from "@/components/calculator/steps/SummaryReview";
@@ -82,7 +81,6 @@ export default function CalculatorPage() {
           <PreMixIntro />
           <WhatIsPreSet />
           <UnderstandingOptions />
-          <SafetyNetDisplay />
           <FinalIncomeDisplay />
           <CallToAction />
 
