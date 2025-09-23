@@ -44,7 +44,7 @@ export default function CallToAction() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
       <motion.div
-        className="text-center space-y-8 max-w-7xl flex flex-col items-center w-full"
+        className="text-center space-y-8 max-w-7xl flex flex-col items-center w-full py-12"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
