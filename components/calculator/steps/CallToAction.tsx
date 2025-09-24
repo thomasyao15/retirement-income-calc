@@ -66,7 +66,7 @@ export default function CallToAction() {
           transition={{ delay: 0.6 }}
         >
           <div className="inline-flex flex-col items-center p-8 bg-orange-50 border-4 border-orange-400 rounded-3xl">
-            <p className="text-2xl font-bold text-orange-600 mb-2">
+            <p className="text-2xl font-bold text-orange-600 mb-2 w-xl">
               We recommend you use
             </p>
             <div className="text-6xl font-bold text-orange-600">
@@ -140,25 +140,25 @@ export default function CallToAction() {
               </motion.div>
             ))}
           </div>
+          <motion.div
+            className="mt-8 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+          >
+            <Button
+              onClick={handleCallAdvisor}
+              size="lg"
+              variant="outline"
+              className="text-xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 min-w-[320px] flex items-center gap-3"
+            >
+              <Phone className="w-6 h-6" />
+              Or Call a Financial Advisor
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Call Financial Advisor Button */}
-        <motion.div
-          className="mt-2 flex justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-        >
-          <Button
-            onClick={handleCallAdvisor}
-            size="lg"
-            variant="outline"
-            className="text-xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 min-w-[320px] flex items-center gap-3"
-          >
-            <Phone className="w-6 h-6" />
-            Call a Financial Advisor
-          </Button>
-        </motion.div>
       </motion.div>
     </div>
   );

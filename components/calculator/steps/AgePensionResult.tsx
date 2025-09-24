@@ -4,25 +4,18 @@ import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ResponsiveBar } from "@nivo/bar";
 import { useCalculatorStore } from "@/store/calculatorStore";
+import { RETIREMENT_INCOME_VALUES } from "@/lib/retirementIncomeData";
 // import { calculateRetirementIncome } from "@/lib/calculationService"; // Commented for demo performance
 
-// Pre-generate pension data for performance (demo purposes)
+// Generate pension data from hardcoded values
 const PENSION_DATA = (() => {
   const data = [];
-  const startAmount = 10000;
-  const maxAmount = 19000;
-  const ages = Array.from({ length: 26 }, (_, i) => 65 + i); // 65 to 90
+  const ages = Array.from({ length: 29 }, (_, i) => 67 + i); // 67 to 95
 
   ages.forEach((age) => {
-    // Create a plateauing curve using logarithmic growth
-    const progress = (age - 65) / 25; // 0 to 1
-    // Use a logarithmic curve for plateauing effect
-    const curveValue = Math.log(1 + progress * 9) / Math.log(10); // Log base 10
-    const amount = startAmount + (maxAmount - startAmount) * curveValue;
-
     data.push({
       age: age.toString(),
-      pension: Math.round(amount),
+      pension: RETIREMENT_INCOME_VALUES.pension[age],
     });
   });
 
@@ -113,7 +106,7 @@ export default function AgePensionResult() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] px-4">
       <motion.div
-        className="text-center space-y-8 max-w-7xl w-full"
+        className="text-center space-y-8 max-w-7xl w-full flex flex-col items-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -137,11 +130,14 @@ export default function AgePensionResult() {
         </motion.p>
 
         <div className="w-full flex flex-col items-center">
-          <p className="text-lg text-muted-foreground mb-4">
-            Your Age Pension projection over time
-          </p>
-
           <div className="w-full max-w-5xl mx-auto h-[600px] bg-card border-2 border-border rounded-3xl p-6 relative">
+            {/* Chart Title */}
+            <div className="absolute top-4 left-0 right-0 text-center z-10">
+              <p className="text-lg font-semibold text-foreground">
+                Your Age Pension Projection Over Time
+              </p>
+            </div>
+
             <div
               style={{
                 position: "absolute",
@@ -155,7 +151,7 @@ export default function AgePensionResult() {
                 data={chartData}
                 keys={["pension"]}
                 indexBy="age"
-                margin={{ top: 20, right: 30, bottom: 60, left: 80 }}
+                margin={{ top: 50, right: 30, bottom: 60, left: 80 }}
                 padding={0.2}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}
@@ -171,7 +167,7 @@ export default function AgePensionResult() {
                   legend: "Age",
                   legendPosition: "middle",
                   legendOffset: 40,
-                  tickValues: ["65", "70", "75", "80", "85", "90"],
+                  tickValues: ["67", "70", "75", "80", "85", "90", "95"],
                 }}
                 axisLeft={{
                   tickSize: 5,
@@ -226,17 +222,17 @@ export default function AgePensionResult() {
                   },
                 }}
                 enableGridY={true}
-                gridYValues={[5000, 10000, 15000, 20000]}
+                gridYValues={[5000, 10000, 15000, 20000, 25000, 30000]}
               />
             </div>
           </div>
         </div>
 
         <motion.div
-          className="p-6 bg-primary/10 border-2 border-primary rounded-2xl"
+          className="p-6 bg-primary/10 border-2 border-primary rounded-2xl w-5xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 0.5 }}
         >
           <p className="text-lg text-foreground">
             💡 With AustralianSuper's lifetime income product, you could

@@ -44,6 +44,15 @@ export default function FinalIncomeDisplay() {
   const { calculations, setCurrentStepValid } = useCalculatorStore();
   const [isAnimated, setIsAnimated] = useState(false);
 
+  // Calculate total pension uplift across all years
+  const totalPensionUplift = useMemo(() => {
+    const ages = Array.from({ length: 29 }, (_, i) => 67 + i);
+    return ages.reduce(
+      (sum, age) => sum + RETIREMENT_INCOME_VALUES.pensionUplift[age],
+      0
+    );
+  }, []);
+
   useEffect(() => {
     // Display page is always valid
     setCurrentStepValid(true);
@@ -144,7 +153,7 @@ export default function FinalIncomeDisplay() {
                 ]}
                 indexBy="age"
                 groupMode="stacked"
-                margin={{ top: 100, right: 190, bottom: 60, left: 90 }}
+                margin={{ top: 60, right: 190, bottom: 60, left: 90 }}
                 padding={0.1}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}
@@ -316,16 +325,15 @@ export default function FinalIncomeDisplay() {
           className="p-8 bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary rounded-3xl mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5 }}
+          transition={{ delay: 0.5 }}
         >
           <p className="text-xl font-bold text-foreground mb-2">
-            🎉 That's $
-            {(calculations.incomeIncreaseWithAS || 0).toLocaleString("en-AU")}{" "}
-            more per year
+            🎉 That's ${totalPensionUplift.toLocaleString("en-AU")} in total
+            pension uplift
           </p>
           <p className="text-lg text-muted-foreground">
             Thanks to AustralianSuper's lifetime income discount on the Age
-            Pension means test
+            Pension means test over your retirement
           </p>
         </motion.div>
       </motion.div>
