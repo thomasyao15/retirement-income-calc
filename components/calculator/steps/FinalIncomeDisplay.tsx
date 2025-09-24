@@ -20,12 +20,13 @@ const RETIREMENT_INCOME_DATA = (() => {
     const pensionUplift = RETIREMENT_INCOME_VALUES.pensionUplift[age];
     const lifetimeIncome = RETIREMENT_INCOME_VALUES.lifetimeIncome[age];
 
+    // Use age-specific target if available, otherwise use default
+    const targetTotal =
+      RETIREMENT_INCOME_VALUES.targetTotalByAge?.[age] ||
+      RETIREMENT_INCOME_VALUES.targetTotal;
+
     // Calculate choice income to hit target
-    const choiceIncome =
-      RETIREMENT_INCOME_VALUES.targetTotal -
-      pension -
-      pensionUplift -
-      lifetimeIncome;
+    const choiceIncome = targetTotal - pension - pensionUplift - lifetimeIncome;
 
     data.push({
       age: age.toString(),
@@ -218,10 +219,10 @@ export default function FinalIncomeDisplay() {
                           <span className="text-sm font-bold text-orange-600">
                             $
                             {(
-                              data.choiceIncome +
-                              data.lifetimeIncome +
-                              data.pensionUplift +
-                              data.pension
+                              (data.choiceIncome || 0) +
+                              (data.lifetimeIncome || 0) +
+                              (data.pensionUplift || 0) +
+                              (data.pension || 0)
                             ).toLocaleString("en-AU")}
                           </span>
                         </div>
@@ -305,7 +306,7 @@ export default function FinalIncomeDisplay() {
                   },
                 ]}
                 enableGridY={true}
-                gridYValues={[10000, 20000, 30000, 40000, 50000, 60000]}
+                gridYValues={[10000, 20000, 30000, 40000, 50000, 55000]}
               />
             </div>
           </div>
