@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function UnderstandingOptions() {
@@ -16,25 +17,25 @@ export default function UnderstandingOptions() {
       title: "Lifetime Income (30%)",
       description:
         "Guaranteed income for life, even if your investments run out",
-      icon: "🛡️",
+      icon: "/assets/stewardship_spot-illus_sand-circle_rgb-280x280.png",
       highlight: "40% discount on Age Pension means test",
     },
     {
       title: "Choice Income (70%)",
       description: "Flexible withdrawals while your money continues to grow",
-      icon: "📈",
+      icon: "/assets/arrow-graph_spot-illus_sand-circle_rgb-280x280.png",
       highlight: "Access when you need it",
     },
     {
       title: "Age Pension",
       description: "Government support you're entitled to",
-      icon: "🏛️",
+      icon: "/assets/TTR-income_spot-illus_sand-circle_rgb-280x280.png",
       highlight: "Maximised with our strategy",
     },
     {
       title: "Total Retirement Income",
       description: "Your complete income solution for a worry-free retirement",
-      icon: "💰",
+      icon: "/assets/money-bag_spot-illus_sand-circle_rgb-280x280.png",
       highlight: "All three pillars combined",
       isTotal: true,
     },
@@ -107,7 +108,15 @@ export default function UnderstandingOptions() {
                 transition={{ delay: 0.6 + index * 0.2 }}
                 style={{ width: "310px", minHeight: "300px" }}
               >
-                <div className="text-5xl mb-3 text-center">{option.icon}</div>
+                <div className="flex justify-center mb-3">
+                  <Image
+                    src={option.icon}
+                    alt={option.title}
+                    width={120}
+                    height={120}
+                    className="object-contain"
+                  />
+                </div>
                 <h3 className="text-xl font-bold mb-3 text-center">
                   {option.title}
                 </h3>
