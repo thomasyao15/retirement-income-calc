@@ -209,7 +209,7 @@ export function calculateAssetTest(
  * // }
  */
 export function calculatePension(params: PensionParams): PensionResult {
-  console.group('📊 calculatePension()');
+  console.group("📊 calculatePension()");
   console.table(params);
 
   // Calculate pension under income test
@@ -217,7 +217,7 @@ export function calculatePension(params: PensionParams): PensionResult {
     params.incomePerFortnight,
     params.relationshipStatus
   );
-  console.log('Income Test Result:', `$${incomeTestPension.toFixed(2)}/year`);
+  console.log("Income Test Result:", `$${incomeTestPension.toFixed(2)}/year`);
 
   // Calculate pension under asset test
   const assetTestPension = calculateAssetTest(
@@ -225,11 +225,14 @@ export function calculatePension(params: PensionParams): PensionResult {
     params.relationshipStatus,
     params.homeOwner
   );
-  console.log('Asset Test Result:', `$${assetTestPension.toFixed(2)}/year`);
+  console.log("Asset Test Result:", `$${assetTestPension.toFixed(2)}/year`);
 
   // Final pension is the LOWER of the two tests
   const finalPension = Math.min(incomeTestPension, assetTestPension);
-  console.log('Final Pension (lower of two):', `$${finalPension.toFixed(2)}/year`);
+  console.log(
+    "Final Pension (lower of two):",
+    `$${finalPension.toFixed(2)}/year`
+  );
 
   // Calculate percentage of full pension
   const fullPension = fortnightlyToAnnual(
@@ -247,8 +250,8 @@ export function calculatePension(params: PensionParams): PensionResult {
     eligibility = "partial";
   }
 
-  console.log('Pension Percentage:', `${pensionPercentage.toFixed(1)}%`);
-  console.log('Eligibility:', eligibility);
+  console.log("Pension Percentage:", `${pensionPercentage.toFixed(1)}%`);
+  console.log("Eligibility:", eligibility);
   console.groupEnd();
 
   return {
@@ -261,7 +264,7 @@ export function calculatePension(params: PensionParams): PensionResult {
 }
 
 /**
- * Determines the recommended Pre-Mix product based on Age Pension eligibility.
+ * Determines the recommended PreSet product based on Age Pension eligibility.
  *
  * Product recommendations:
  * - Product A: 90-100% of full pension (high pension, low super needed)
@@ -321,20 +324,29 @@ export function getAllocationByProduct(
   superBalance: number
 ): AllocationResult {
   const allocations = {
-    A: { choice: 85, lifetime: 15 },  // High pension already, small LTI for bonus
-    B: { choice: 80, lifetime: 20 },  // Moderate pension, some LTI benefit
-    C: { choice: 70, lifetime: 30 },  // Optimal LTI discount zone
-    D: { choice: 90, lifetime: 10 },  // Minimal pension, focus on super with small LTI
+    A: { choice: 85, lifetime: 15 }, // High pension already, small LTI for bonus
+    B: { choice: 80, lifetime: 20 }, // Moderate pension, some LTI benefit
+    C: { choice: 70, lifetime: 30 }, // Optimal LTI discount zone
+    D: { choice: 90, lifetime: 10 }, // Minimal pension, focus on super with small LTI
   };
 
   const allocation = allocations[product];
 
-  console.group('📦 getAllocationByProduct()');
-  console.log('Product:', product);
-  console.log('Super Balance:', `$${superBalance.toLocaleString()}`);
-  console.log('Allocation Split:', `${allocation.choice}% Choice / ${allocation.lifetime}% Lifetime`);
-  console.log('Choice Amount:', `$${(superBalance * allocation.choice / 100).toLocaleString()}`);
-  console.log('Lifetime Amount:', `$${(superBalance * allocation.lifetime / 100).toLocaleString()}`);
+  console.group("📦 getAllocationByProduct()");
+  console.log("Product:", product);
+  console.log("Super Balance:", `$${superBalance.toLocaleString()}`);
+  console.log(
+    "Allocation Split:",
+    `${allocation.choice}% Choice / ${allocation.lifetime}% Lifetime`
+  );
+  console.log(
+    "Choice Amount:",
+    `$${((superBalance * allocation.choice) / 100).toLocaleString()}`
+  );
+  console.log(
+    "Lifetime Amount:",
+    `$${((superBalance * allocation.lifetime) / 100).toLocaleString()}`
+  );
   console.groupEnd();
 
   return {
@@ -392,17 +404,20 @@ export function calculateAdjustedPension(
   params: PensionParams,
   lifetimeAmount: number
 ): PensionResult {
-  console.group('🔄 calculateAdjustedPension()');
-  console.log('Original Total Assets:', `$${params.totalAssets.toLocaleString()}`);
-  console.log('Lifetime Income Amount:', `$${lifetimeAmount.toLocaleString()}`);
-  console.log('40% Discount:', `$${(lifetimeAmount * 0.4).toLocaleString()}`);
+  console.group("🔄 calculateAdjustedPension()");
+  console.log(
+    "Original Total Assets:",
+    `$${params.totalAssets.toLocaleString()}`
+  );
+  console.log("Lifetime Income Amount:", `$${lifetimeAmount.toLocaleString()}`);
+  console.log("40% Discount:", `$${(lifetimeAmount * 0.4).toLocaleString()}`);
 
   // Apply the 40% discount to assessable assets
   const discountedAssets = calculateLifetimeIncomeDiscount(
     params.totalAssets,
     lifetimeAmount
   );
-  console.log('Discounted Assets:', `$${discountedAssets.toLocaleString()}`);
+  console.log("Discounted Assets:", `$${discountedAssets.toLocaleString()}`);
   console.groupEnd();
 
   // Recalculate pension with lower assessable assets
@@ -492,15 +507,17 @@ export function calculateLifetimeIncomeAnnual(
   const LIFETIME_INCOME_RATE = 0.067;
   const result = lifetimeAmount * LIFETIME_INCOME_RATE;
 
-  console.group('💵 calculateLifetimeIncomeAnnual()');
-  console.log('Lifetime Amount:', `$${lifetimeAmount.toLocaleString()}`);
-  console.log('Rate:', `${(LIFETIME_INCOME_RATE * 100).toFixed(1)}% (${LIFETIME_INCOME_RATE})`);
-  console.log('Annual Income:', `$${result.toFixed(2)}`);
+  console.group("💵 calculateLifetimeIncomeAnnual()");
+  console.log("Lifetime Amount:", `$${lifetimeAmount.toLocaleString()}`);
+  console.log(
+    "Rate:",
+    `${(LIFETIME_INCOME_RATE * 100).toFixed(1)}% (${LIFETIME_INCOME_RATE})`
+  );
+  console.log("Annual Income:", `$${result.toFixed(2)}`);
   console.groupEnd();
 
   return result;
 }
-
 
 /**
  * Maps relationship status from UI options to calculation format.

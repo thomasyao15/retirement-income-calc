@@ -164,7 +164,7 @@ export function calculateAgePension(data: {
 export function determinePreMix(
   pensionResult: AgePensionResult
 ): PreMixRecommendation {
-  // Logic to determine optimal pre-mix
+  // Logic to determine optimal PreSet
   return {
     option: 'balanced',
     lifetimeIncome: 30,
@@ -303,7 +303,7 @@ src/
 ├── lib/
 │   ├── calculations/
 │   │   ├── agePension.ts        # Age pension calculator
-│   │   ├── preMix.ts           # Pre-mix recommendation logic
+│   │   ├── preMix.ts           # PreSet recommendation logic
 │   │   └── retirement.ts        # Retirement income projections
 │   ├── hooks/
 │   │   └── useStepValidation.ts # Validation hook for steps
@@ -499,7 +499,7 @@ const ScrollWheelInput = () => {
 
 ### Phase 3: Calculations
 1. Implement age pension calculation function
-2. Add pre-mix recommendation logic
+2. Add PreSet recommendation logic
 3. Create retirement projection calculator
 4. Wire up mid-flow calculations
 

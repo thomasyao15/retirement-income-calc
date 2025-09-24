@@ -2,23 +2,23 @@
 ## AustralianSuper Retirement Income Calculator
 
 ### Executive Summary
-A polished, narrative-driven retirement income calculator designed for AustralianSuper members approaching retirement. The calculator guides users through a wizard-style multi-step form to determine their optimal pre-mix investment option based on their Age Pension eligibility and personal circumstances.
+A polished, narrative-driven retirement income calculator designed for AustralianSuper members approaching retirement. The calculator guides users through a wizard-style multi-step form to determine their optimal PreSet investment option based on their Age Pension eligibility and personal circumstances.
 
 ---
 
 ## 1. Product Overview
 
 ### Purpose
-To help AustralianSuper members who are about to retire calculate their projected retirement income and recommend an optimal pre-mix investment option tailored to their Age Pension eligibility status.
+To help AustralianSuper members who are about to retire calculate their projected retirement income and recommend an optimal PreSet investment option tailored to their Age Pension eligibility status.
 
 ### Target Users
 - AustralianSuper members approaching retirement age
 - Members seeking to understand their retirement income options
-- Members wanting personalized pre-mix recommendations
+- Members wanting personalized PreSet recommendations
 
 ### Key Value Proposition
 - Personalized retirement income projections
-- Tailored pre-mix investment recommendations
+- Tailored PreSet investment recommendations
 - Clear comparison between recommended vs. non-recommended options
 - Educational journey that explains retirement income components
 
@@ -26,18 +26,18 @@ To help AustralianSuper members who are about to retire calculate their projecte
 
 ## 2. Product Components
 
-### 2.1 Pre-mix Options Overview
-Pre-mix options are preset retirement income strategies composed of three components:
+### 2.1 PreSet Options Overview
+PreSet options are preset retirement income strategies composed of three components:
 
 1. **Age Pension** - Government pension based on eligibility
 2. **Lifetime Income** - AustralianSuper product offering guaranteed income for life from a lump sum investment
 3. **Choice Income** - Annuity-like product allowing regular withdrawals while remaining funds continue to grow
 
-### 2.2 Pre-mix Determination Logic
-Pre-mix recommendations are based on Age Pension eligibility status:
-- **Not eligible** → Specific pre-mix allocation
-- **Partial eligibility** → Variable rate pre-mix allocation
-- **Full eligibility** → Full pension pre-mix allocation
+### 2.2 PreSet Determination Logic
+PreSet recommendations are based on Age Pension eligibility status:
+- **Not eligible** → Specific PreSet allocation
+- **Partial eligibility** → Variable rate PreSet allocation
+- **Full eligibility** → Full pension PreSet allocation
 
 ---
 
@@ -126,7 +126,7 @@ After each major section, display a mini-summary card:
 
 #### Visual Contrast Screen
 At the journey's end:
-- Split-screen comparison: "With our Pre-mix: $X/month" vs. "Without: $Y/month"
+- Split-screen comparison: "With our PreSet: $X/month" vs. "Without: $Y/month"
 - Visual graph breaking down pension vs. lifetime income vs. choice income
 - Clear call-to-action for next steps
 
@@ -172,13 +172,13 @@ These milestone moments reinforce the narrative arc and help users understand th
 - Educational tooltips explaining Age Pension rules
 - Section summary before proceeding
 
-### 4.3 Section 3: Pre-mix Recommendation Journey
-**Purpose**: Present personalized pre-mix recommendation and retirement income projection
+### 4.3 Section 3: PreSet Recommendation Journey
+**Purpose**: Present personalized PreSet recommendation and retirement income projection
 
 **Flow**:
 1. **Introduction** - Explain what's coming
-2. **Recommendation Reveal** - Show recommended pre-mix based on Age Pension status
-3. **Component Breakdown** - Explain each component of the pre-mix
+2. **Recommendation Reveal** - Show recommended PreSet based on Age Pension status
+3. **Component Breakdown** - Explain each component of the PreSet
 4. **Income Projection** - Display projected retirement income
 5. **Comparison** - Show recommended vs. non-recommended scenarios
 6. **Visualization** - Interactive charts showing income sources breakdown
@@ -287,7 +287,7 @@ These milestone moments reinforce the narrative arc and help users understand th
 3. Results display
 4. Educational content
 
-### Phase 4: Pre-mix Recommendation
+### Phase 4: PreSet Recommendation
 1. Build narrative flow
 2. Recommendation logic
 3. Comparison displays

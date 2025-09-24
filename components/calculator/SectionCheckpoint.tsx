@@ -19,7 +19,7 @@ export default function SectionCheckpoint({
   const sections = [
     { number: 1, label: "Personal Info" },
     { number: 2, label: "Age Pension" },
-    { number: 3, label: "Pre-Mix" },
+    { number: 3, label: "PreSet" },
   ];
 
   return (

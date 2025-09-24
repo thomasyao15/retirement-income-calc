@@ -43,7 +43,7 @@ This is a Next.js 15+ retirement income calculator for AustralianSuper members, 
    - Complex calculation logic in `lib/calculations.ts`
    - Results stored in `calculations` object
 
-3. **Section 3 - Pre-Mix Recommendation**
+3. **Section 3 - PreSet Recommendation**
    - Recommends product (A/B/C/D) based on pension eligibility percentage
    - Shows allocation between Choice Income and Lifetime Income products
    - Visual comparisons and income projections

@@ -112,7 +112,7 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          With AustralianSuper Pre-Mix Option {calculations.recommendedPreMix}
+          With AustralianSuper PreSet Option {calculations.recommendedPreMix}
         </motion.p>
 
         <motion.div
@@ -334,8 +334,8 @@ export default function FinalIncomeDisplay() {
           transition={{ delay: 0.5 }}
         >
           <p className="text-xl font-bold text-foreground mb-2">
-            🎉 That&apos;s ${totalPensionUplift.toLocaleString("en-AU")} in total
-            pension uplift
+            🎉 That&apos;s ${totalPensionUplift.toLocaleString("en-AU")} in
+            total pension uplift
           </p>
           <p className="text-lg text-muted-foreground">
             Thanks to AustralianSuper&apos;s lifetime income discount on the Age

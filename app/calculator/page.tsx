@@ -20,7 +20,7 @@ import HomeOwnership from "@/components/calculator/steps/HomeOwnership";
 import CombinedIncome from "@/components/calculator/steps/CombinedIncome";
 import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 
-// Step components - Pre-Mix Recommendation
+// Step components - PreSet Recommendation
 import PreMixIntro from "@/components/calculator/steps/PreMixIntro";
 import UnderstandingOptions from "@/components/calculator/steps/UnderstandingOptions";
 import FinalIncomeDisplay from "@/components/calculator/steps/FinalIncomeDisplay";
@@ -42,7 +42,7 @@ const Section2Checkpoint = () => (
     currentSection={2}
     title="Excellent work!"
     subtitle="We've calculated your Age Pension eligibility"
-    content="Finally, let's explore your personalised Pre-Mix recommendation to maximise your retirement income."
+    content="Finally, let's explore your personalised PreSet recommendation to maximise your retirement income."
   />
 );
 
@@ -74,7 +74,7 @@ export default function CalculatorPage() {
           {/* Section 2 Complete */}
           <Section2Checkpoint />
 
-          {/* Section 3: Pre-Mix Recommendation */}
+          {/* Section 3: PreSet Recommendation */}
           <PreMixIntro />
           <UnderstandingOptions />
           <FinalIncomeDisplay />

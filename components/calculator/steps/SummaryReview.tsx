@@ -103,7 +103,7 @@ export default function SummaryReview() {
           value: `${formatCurrency(calculations.estimatedPension)}/year`,
         },
         {
-          label: "Recommended Pre-Mix",
+          label: "Recommended PreSet",
           value: `Option ${calculations.recommendedPreMix}` || "Not determined",
         },
         {
