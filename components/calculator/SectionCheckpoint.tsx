@@ -8,6 +8,7 @@ interface SectionCheckpointProps {
   title: string;
   subtitle: string;
   content: string;
+  highlight?: string;
 }
 
 export default function SectionCheckpoint({
@@ -15,6 +16,7 @@ export default function SectionCheckpoint({
   title,
   subtitle,
   content,
+  highlight,
 }: SectionCheckpointProps) {
   const sections = [
     { number: 1, label: "Personal Info" },
@@ -118,6 +120,19 @@ export default function SectionCheckpoint({
         >
           {content}
         </motion.div>
+
+        {highlight && (
+          <motion.div
+            className="mt-8 p-6 bg-primary/10 border-2 border-primary rounded-2xl"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <p className="text-2xl md:text-3xl font-bold text-primary">
+              {highlight}
+            </p>
+          </motion.div>
+        )}
 
         {/* <motion.div
           className="mt-12 p-8 bg-primary/10 border-4 border-primary rounded-3xl"

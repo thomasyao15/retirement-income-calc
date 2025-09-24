@@ -15,17 +15,14 @@ import SuperBalance from "@/components/calculator/steps/SuperBalance";
 import TotalAssets from "@/components/calculator/steps/TotalAssets";
 
 // Step components - Age Pension
-import AgePensionIntro from "@/components/calculator/steps/AgePensionIntro";
 import HomeOwnership from "@/components/calculator/steps/HomeOwnership";
 import CombinedIncome from "@/components/calculator/steps/CombinedIncome";
 import AgePensionResult from "@/components/calculator/steps/AgePensionResult";
 
 // Step components - PreSet Recommendation
-import PreMixIntro from "@/components/calculator/steps/PreMixIntro";
 import UnderstandingOptions from "@/components/calculator/steps/UnderstandingOptions";
 import FinalIncomeDisplay from "@/components/calculator/steps/FinalIncomeDisplay";
 import CallToAction from "@/components/calculator/steps/CallToAction";
-import SummaryReview from "@/components/calculator/steps/SummaryReview";
 
 // Checkpoint components
 const Section1Checkpoint = () => (
@@ -34,6 +31,7 @@ const Section1Checkpoint = () => (
     title="Great progress!"
     subtitle="You've completed the personal information section"
     content="Now let's check your Age Pension eligibility to determine the best retirement income strategy for you."
+    highlight="Let's unlock your Age Pension"
   />
 );
 
@@ -43,6 +41,7 @@ const Section2Checkpoint = () => (
     title="Excellent work!"
     subtitle="We've calculated your Age Pension eligibility"
     content="Finally, let's explore your personalised PreSet recommendation to maximise your retirement income."
+    highlight="Let's explore suitable PreSet options"
   />
 );
 
@@ -66,7 +65,6 @@ export default function CalculatorPage() {
           <Section1Checkpoint />
 
           {/* Section 2: Age Pension */}
-          <AgePensionIntro />
           <HomeOwnership />
           <CombinedIncome />
           <AgePensionResult />
@@ -75,13 +73,9 @@ export default function CalculatorPage() {
           <Section2Checkpoint />
 
           {/* Section 3: PreSet Recommendation */}
-          <PreMixIntro />
           <UnderstandingOptions />
           <FinalIncomeDisplay />
           <CallToAction />
-
-          {/* Summary Review */}
-          <SummaryReview />
         </Wizard>
       </AnimatePresence>
     </div>

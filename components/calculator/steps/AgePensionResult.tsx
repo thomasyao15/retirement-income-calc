@@ -130,7 +130,7 @@ export default function AgePensionResult() {
         </motion.p>
 
         <div className="w-full flex flex-col items-center">
-          <div className="w-full max-w-5xl mx-auto h-[600px] bg-card border-2 border-border rounded-3xl p-6 relative">
+          <div className="w-full max-w-5xl mx-auto h-[450px] bg-card border-2 border-border rounded-3xl p-6 relative">
             {/* Chart Title */}
             <div className="absolute top-4 left-0 right-0 text-center z-10">
               <p className="text-lg font-semibold text-foreground">
@@ -234,8 +234,8 @@ export default function AgePensionResult() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-xl text-foreground">
-            💡 With AustralianSuper&apos;s lifetime income product, you could
+          <p className="text-2xl text-foreground">
+            With AustralianSuper&apos;s lifetime income product, you could
             increase this further
           </p>
         </motion.div>

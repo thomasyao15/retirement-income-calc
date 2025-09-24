@@ -50,7 +50,7 @@ export default function CallToAction() {
         >
           <div className="inline-flex flex-col items-center p-8 bg-orange-50 border-4 border-orange-400 rounded-3xl">
             <div className="text-6xl font-bold text-orange-600 mb-2">
-              PreSet {calculations.recommendedPreMix || "C"}
+              PreSet 3
             </div>
             <p className="text-2xl font-bold text-orange-600">
               could best meet your needs
@@ -69,7 +69,7 @@ export default function CallToAction() {
             onClick={handleCallAdvisor}
             size="lg"
             variant="outline"
-            className="text-xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 w-[380px] flex items-center justify-center gap-3"
+            className="text-2xl px-12 py-8 h-auto rounded-full border-2 border-primary text-primary hover:bg-primary/10 w-[420px] flex items-center justify-center gap-3"
           >
             <Phone className="w-6 h-6" />
             Call a Financial Advisor
@@ -77,7 +77,7 @@ export default function CallToAction() {
           <Button
             onClick={handleMemberPortal}
             size="lg"
-            className="text-xl px-12 py-8 h-auto rounded-full w-[380px] flex items-center justify-center"
+            className="text-2xl px-12 py-8 h-auto rounded-full w-[420px] flex items-center justify-center"
           >
             Learn More at Member Portal
           </Button>

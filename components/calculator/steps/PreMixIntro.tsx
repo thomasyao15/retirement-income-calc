@@ -17,7 +17,6 @@ export default function PreMixIntro() {
       <TextDisplay
         title="Your Retirement, Simplified"
         content="AustralianSuper's PreSet options combine three powerful income sources to give you the confidence to enjoy retirement. Each option is tailored to your Age Pension eligibility, ensuring you get the most from your super."
-        highlight="Let's explore suitable PreSet options"
       />
     </div>
   );

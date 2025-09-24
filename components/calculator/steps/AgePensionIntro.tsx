@@ -18,7 +18,6 @@ export default function AgePensionIntro() {
         title="Did you know?"
         subtitle="The Age Pension can provide up to $46,202 per year"
         content="Most Australians are eligible for some level of Age Pension. Let's check what you could receive to boost your retirement income."
-        highlight="Let's unlock your Age Pension"
       />
     </div>
   );
