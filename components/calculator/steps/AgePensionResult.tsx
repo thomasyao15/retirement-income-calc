@@ -234,7 +234,7 @@ export default function AgePensionResult() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-lg text-foreground">
+          <p className="text-xl text-foreground">
             💡 With AustralianSuper&apos;s lifetime income product, you could
             increase this further
           </p>

@@ -112,7 +112,7 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          With AustralianSuper PreSet Option {calculations.recommendedPreMix}
+          With AustralianSuper PreSet 3
         </motion.p>
 
         <motion.div
@@ -128,11 +128,11 @@ export default function FinalIncomeDisplay() {
             decimals={0}
             className="text-7xl md:text-8xl"
           />
-          <p className="text-xl text-muted-foreground mt-4">every year</p>
+          <p className="text-2xl text-muted-foreground mt-4">every year</p>
         </motion.div>
 
         <div className="w-full flex flex-col items-center">
-          <div className="w-full max-w-7xl mx-auto h-[600px] bg-card border-2 border-border rounded-3xl p-6 relative">
+          <div className="w-full max-w-7xl mx-auto h-[450px] bg-card border-2 border-border rounded-3xl p-6 relative">
             {/* Chart Title */}
             <div className="absolute top-4 left-0 right-0 text-center z-10">
               <p className="text-lg font-semibold text-foreground">
@@ -159,7 +159,7 @@ export default function FinalIncomeDisplay() {
                 ]}
                 indexBy="age"
                 groupMode="stacked"
-                margin={{ top: 60, right: 190, bottom: 60, left: 90 }}
+                margin={{ top: 60, right: 190, bottom: 70, left: 120 }}
                 padding={0.1}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}
@@ -183,7 +183,7 @@ export default function FinalIncomeDisplay() {
                   tickRotation: 0,
                   legend: "Annual Income ($)",
                   legendPosition: "middle",
-                  legendOffset: -60,
+                  legendOffset: -80,
                   format: (value) => `$${(value / 1000).toFixed(0)}k`,
                 }}
                 labelSkipWidth={12}
@@ -249,14 +249,14 @@ export default function FinalIncomeDisplay() {
                   axis: {
                     legend: {
                       text: {
-                        fontSize: 14,
+                        fontSize: 18,
                         fontWeight: 600,
                         fontFamily: '"Inter", sans-serif',
                       },
                     },
                     ticks: {
                       text: {
-                        fontSize: 12,
+                        fontSize: 16,
                         fontFamily: '"Inter", sans-serif',
                       },
                     },
@@ -333,12 +333,15 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-xl font-bold text-foreground mb-2">
-            🎉 That&apos;s ${totalPensionUplift.toLocaleString("en-AU")} in
-            total pension uplift
+          <p className="text-3xl font-bold text-foreground mb-2">
+            That&apos;s{" "}
+            <span className="text-green-600 font-bold">
+              ${totalPensionUplift.toLocaleString("en-AU")}
+            </span>{" "}
+            more pension over your retirement
           </p>
           <p className="text-lg text-muted-foreground">
-            Thanks to AustralianSuper&apos;s lifetime income discount on the Age
+            Thanks to AustralianSuper&apos;s Lifetime Income discount on the Age
             Pension means test over your retirement
           </p>
         </motion.div>

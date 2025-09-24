@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function UnderstandingOptions() {
-  const { setCurrentStepValid } = useCalculatorStore();
+  const { setCurrentStepValid, calculations } = useCalculatorStore();
 
   useEffect(() => {
     // Info page is always valid
@@ -13,14 +13,14 @@ export default function UnderstandingOptions() {
   }, [setCurrentStepValid]);
   const options = [
     {
-      title: "Lifetime Income",
+      title: "Lifetime Income (30%)",
       description:
         "Guaranteed income for life, even if your investments run out",
       icon: "🛡️",
       highlight: "40% discount on Age Pension means test",
     },
     {
-      title: "Choice Income",
+      title: "Choice Income (70%)",
       description: "Flexible withdrawals while your money continues to grow",
       icon: "📈",
       highlight: "Access when you need it",
@@ -57,17 +57,24 @@ export default function UnderstandingOptions() {
           Your Three Pillars of Income
         </motion.h1>
 
-        <motion.p
-          className="text-xl md:text-2xl text-muted-foreground max-w-5xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+        {/* Recommended PreSet Badge */}
+        <motion.div
+          className="my-2"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
         >
-          We&apos;ve designed a PreSet strategy that combines three income
-          sources to give you the best possible retirement.
-        </motion.p>
+          <div className="inline-flex flex-col items-center p-8 bg-orange-50 border-4 border-orange-400 rounded-3xl">
+            <div className="text-6xl font-bold text-orange-600 mb-2">
+              PreSet 3
+            </div>
+            <p className="text-2xl font-bold text-orange-600">
+              could best meet your needs
+            </p>
+          </div>
+        </motion.div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           {options.map((option, index) => (
             <React.Fragment key={option.title}>
               {/* Add + or = sign before the card (except for the first one) */}
@@ -98,17 +105,17 @@ export default function UnderstandingOptions() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.2 }}
-                style={{ width: "250px", minHeight: "280px" }}
+                style={{ width: "310px", minHeight: "300px" }}
               >
                 <div className="text-5xl mb-3 text-center">{option.icon}</div>
-                <h3 className="text-lg font-bold mb-3 text-center">
+                <h3 className="text-xl font-bold mb-3 text-center">
                   {option.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4 text-center">
+                <p className="text-lg text-muted-foreground mb-4 text-center">
                   {option.description}
                 </p>
                 <div className="p-2 bg-primary/10 rounded-xl">
-                  <p className="text-xs font-semibold text-primary text-center">
+                  <p className="text-sm font-semibold text-primary text-center">
                     {option.highlight}
                   </p>
                 </div>
