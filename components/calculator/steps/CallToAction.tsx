@@ -10,8 +10,8 @@ export default function CallToAction() {
   const { setCurrentStepValid, calculations } = useCalculatorStore();
 
   useEffect(() => {
-    // CTA page is always valid
-    setCurrentStepValid(true);
+    // CTA page disables the submit button since it has its own action buttons
+    setCurrentStepValid(false);
   }, [setCurrentStepValid]);
 
   const handleCallAdvisor = () => {
