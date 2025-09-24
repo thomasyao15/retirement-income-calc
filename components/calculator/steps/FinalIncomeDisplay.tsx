@@ -333,14 +333,14 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-3xl font-bold text-foreground mb-4">
+          <p className="text-3xl font-bold text-foreground mb-2">
             That&apos;s{" "}
             <span className="text-green-600 font-bold">
               ${totalPensionUplift.toLocaleString("en-AU")}
             </span>{" "}
-            more pension over your retirement
+            more Age Pension over your retirement
           </p>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             Thanks to AustralianSuper&apos;s Lifetime Income discount on the Age
             Pension means test over your retirement
           </p>
