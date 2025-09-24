@@ -12,7 +12,13 @@ import {
 
 // Generate chart data from hardcoded values
 const RETIREMENT_INCOME_DATA = (() => {
-  const data = [];
+  const data: {
+    age: string;
+    pension: number;
+    pensionUplift: number;
+    lifetimeIncome: number;
+    choiceIncome: number;
+  }[] = [];
   const ages = Array.from({ length: 29 }, (_, i) => 67 + i); // 67 to 95
 
   ages.forEach((age) => {
@@ -97,7 +103,7 @@ export default function FinalIncomeDisplay() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Here's your total retirement income
+          Here&apos;s your total retirement income
         </motion.h1>
 
         <motion.p
@@ -192,7 +198,7 @@ export default function FinalIncomeDisplay() {
                   precision: 0.01,
                   velocity: 0,
                 }}
-                tooltip={({ id, value, indexValue, data }) => (
+                tooltip={({ indexValue, data }) => (
                   <div className="bg-white px-3 py-2 shadow-lg rounded-lg border border-gray-200">
                     <p className="font-semibold text-sm mb-2">
                       Age {indexValue}
@@ -328,11 +334,11 @@ export default function FinalIncomeDisplay() {
           transition={{ delay: 0.5 }}
         >
           <p className="text-xl font-bold text-foreground mb-2">
-            🎉 That's ${totalPensionUplift.toLocaleString("en-AU")} in total
+            🎉 That&apos;s ${totalPensionUplift.toLocaleString("en-AU")} in total
             pension uplift
           </p>
           <p className="text-lg text-muted-foreground">
-            Thanks to AustralianSuper's lifetime income discount on the Age
+            Thanks to AustralianSuper&apos;s lifetime income discount on the Age
             Pension means test over your retirement
           </p>
         </motion.div>

@@ -8,7 +8,7 @@ export const pageVariants = {
     x: 0,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   },
   exit: (direction: number) => ({
@@ -16,7 +16,7 @@ export const pageVariants = {
     x: direction < 0 ? 300 : -300,
     transition: {
       duration: 0.3,
-      ease: "easeIn"
+      ease: "easeIn" as const
     }
   })
 }
@@ -31,7 +31,7 @@ export const fadeInVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -42,14 +42,14 @@ export const scaleVariants = {
     scale: 1.02,
     transition: {
       duration: 0.2,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   },
   tap: {
     scale: 0.98,
     transition: {
       duration: 0.1,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 }
@@ -75,7 +75,7 @@ export const staggerItem = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }

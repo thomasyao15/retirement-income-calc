@@ -7,7 +7,6 @@ import {
   calculatePension,
   getProductRecommendation,
   getAllocationByProduct,
-  calculateLifetimeIncomeDiscount,
   calculateLifetimeIncomeAnnual,
   calculateAnnualChoiceIncome,
   annualToFortnightly,

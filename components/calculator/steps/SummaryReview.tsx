@@ -150,7 +150,7 @@ export default function SummaryReview() {
             Review Your Information
           </h1>
           <p className="text-xl text-muted-foreground">
-            Here's everything we've captured for your retirement plan
+            Here&apos;s everything we&apos;ve captured for your retirement plan
           </p>
         </motion.div>
 

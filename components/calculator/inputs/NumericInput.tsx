@@ -23,7 +23,6 @@ export default function NumericInput({
   max,
   placeholder = "0",
   label,
-  helperText,
   error,
   autoFocus = true,
 }: NumericInputProps) {

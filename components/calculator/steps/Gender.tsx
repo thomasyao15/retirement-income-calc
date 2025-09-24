@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useWizard } from "react-use-wizard"
+
 import QuestionLayout from "@/components/calculator/QuestionLayout"
 import MultipleChoice from "@/components/calculator/inputs/MultipleChoice"
 import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function Gender() {
-  const { nextStep } = useWizard()
+
   const { personalInfo, updatePersonalInfo, setCurrentStepValid } = useCalculatorStore()
   const [gender, setGender] = useState<string>(personalInfo.gender || "")
 

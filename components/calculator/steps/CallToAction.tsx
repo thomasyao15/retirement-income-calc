@@ -1,16 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useWizard } from "react-use-wizard";
-import { Check, Circle, Phone } from "lucide-react";
+import { Circle, Phone } from "lucide-react";
 import { useCalculatorStore } from "@/store/calculatorStore";
 
 export default function CallToAction() {
-  const router = useRouter();
-  const { nextStep } = useWizard();
   const { setCurrentStepValid, calculations } = useCalculatorStore();
 
   useEffect(() => {

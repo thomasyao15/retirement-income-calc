@@ -34,7 +34,7 @@ export default function WhatIsPreSet() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          We've designed a PreSet strategy that combines three income sources to give you the best possible retirement
+          We&apos;ve designed a PreSet strategy that combines three income sources to give you the best possible retirement
         </motion.p>
 
         {/* Main layout container */}
@@ -61,7 +61,7 @@ export default function WhatIsPreSet() {
             >
               <p className="text-base text-muted-foreground">
                 For the things you love - travel, hobbies,
-                helping your grandchildren, or that passion project you've always dreamed about
+                helping your grandchildren, or that passion project you&apos;ve always dreamed about
               </p>
             </motion.div>
           </div>

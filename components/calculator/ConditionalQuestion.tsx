@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useWizard } from "react-use-wizard"
 import QuestionLayout from "@/components/calculator/QuestionLayout"
 import MultipleChoice from "@/components/calculator/inputs/MultipleChoice"
 import CurrencyInput from "@/components/calculator/inputs/CurrencyInput"
@@ -28,17 +27,11 @@ export default function ConditionalQuestion({
   binarySubtitle,
   amountQuestion,
   amountSubtitle,
-  amountPrefix = "$",
-  amountSuffix = "",
   onBinaryChange,
   onAmountChange,
   defaultBinary = false,
   defaultAmount = 0,
-  min = 0,
-  max = 10000000,
-  step = 1000
 }: ConditionalQuestionProps) {
-  const { nextStep, previousStep } = useWizard()
   const { setCurrentStepValid } = useCalculatorStore()
   const [showAmount, setShowAmount] = useState(defaultBinary)
   const [hasAnswer, setHasAnswer] = useState<string>(defaultBinary ? "yes" : "")

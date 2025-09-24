@@ -9,7 +9,7 @@ import { RETIREMENT_INCOME_VALUES } from "@/lib/retirementIncomeData";
 
 // Generate pension data from hardcoded values
 const PENSION_DATA = (() => {
-  const data = [];
+  const data: { age: string; pension: number }[] = [];
   const ages = Array.from({ length: 29 }, (_, i) => 67 + i); // 67 to 95
 
   ages.forEach((age) => {
@@ -36,7 +36,7 @@ const getASColors = () => {
 };
 
 export default function AgePensionResult() {
-  const { setCalculations, calculations, personalInfo, setCurrentStepValid } =
+  const { setCalculations, calculations, setCurrentStepValid } =
     useCalculatorStore();
 
   const [isAnimated, setIsAnimated] = useState(false);
@@ -235,7 +235,7 @@ export default function AgePensionResult() {
           transition={{ delay: 0.5 }}
         >
           <p className="text-lg text-foreground">
-            💡 With AustralianSuper's lifetime income product, you could
+            💡 With AustralianSuper&apos;s lifetime income product, you could
             increase this further
           </p>
         </motion.div>

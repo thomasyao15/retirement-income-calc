@@ -3,9 +3,7 @@
 import { Wizard } from "react-use-wizard";
 import { AnimatePresence } from "framer-motion";
 import WizardFooter from "@/components/calculator/WizardFooter";
-import WizardProgress from "@/components/calculator/WizardProgress";
 import SectionCheckpoint from "@/components/calculator/SectionCheckpoint";
-import AnimationWrapper from "@/components/calculator/AnimationWrapper";
 
 // Step components - Personal Information
 import WelcomePage from "@/components/calculator/steps/WelcomePage";
@@ -52,7 +50,7 @@ export default function CalculatorPage() {
   return (
     <div className="mx-auto px-4 overflow-x-hidden">
       <AnimatePresence mode="wait">
-        <Wizard wrapper={<AnimationWrapper />} footer={<WizardFooter />}>
+        <Wizard footer={<WizardFooter />}>
           {/* Welcome */}
           <WelcomePage />
 

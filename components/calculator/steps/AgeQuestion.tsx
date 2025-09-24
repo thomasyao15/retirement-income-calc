@@ -49,7 +49,6 @@ export default function AgeQuestion() {
         placeholder="65"
         error={error}
         autoFocus
-        required
       />
     </QuestionLayout>
   )

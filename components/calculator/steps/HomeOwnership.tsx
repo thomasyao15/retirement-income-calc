@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useWizard } from "react-use-wizard"
+
 import QuestionLayout from "@/components/calculator/QuestionLayout"
 import YesNoChoice from "@/components/calculator/inputs/YesNoChoice"
 import { useCalculatorStore } from "@/store/calculatorStore"
 
 export default function HomeOwnership() {
-  const { nextStep } = useWizard()
+
   const { pensionData, updatePensionData, setCurrentStepValid } = useCalculatorStore()
   const [ownsHome, setOwnsHome] = useState<boolean | undefined>(
     pensionData.homeOwnership === 'yes' ? true :
