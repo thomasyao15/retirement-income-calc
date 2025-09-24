@@ -14,7 +14,7 @@ export const RETIREMENT_INCOME_VALUES: RetirementIncomeValues = {
 
   // Age-specific target totals (optional - for custom targets at specific ages)
   targetTotalByAge: {
-    95: 33350  // At 95: pension (27770) + uplift (0) + lifetime (5580) = 33350, so choice income = 0
+    // Custom targets can be added here if needed
   },
 
   // Age Pension values (gradual growth to 22k by age 80, then plateaus to 27,770)
