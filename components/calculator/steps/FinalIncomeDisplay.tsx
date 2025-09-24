@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import { ResponsiveBar } from "@nivo/bar";
 import AnimatedCounter from "@/components/calculator/AnimatedCounter";
 import { useCalculatorStore } from "@/store/calculatorStore";
-import { RETIREMENT_INCOME_VALUES, getASStackedColors } from "@/lib/retirementIncomeData";
+import {
+  RETIREMENT_INCOME_VALUES,
+  getASStackedColors,
+} from "@/lib/retirementIncomeData";
 
 // Generate chart data from hardcoded values
 const RETIREMENT_INCOME_DATA = (() => {
@@ -18,14 +21,18 @@ const RETIREMENT_INCOME_DATA = (() => {
     const lifetimeIncome = RETIREMENT_INCOME_VALUES.lifetimeIncome[age];
 
     // Calculate choice income to hit target
-    const choiceIncome = RETIREMENT_INCOME_VALUES.targetTotal - pension - pensionUplift - lifetimeIncome;
+    const choiceIncome =
+      RETIREMENT_INCOME_VALUES.targetTotal -
+      pension -
+      pensionUplift -
+      lifetimeIncome;
 
     data.push({
       age: age.toString(),
       pension: pension,
       pensionUplift: pensionUplift,
       lifetimeIncome: lifetimeIncome,
-      choiceIncome: Math.max(0, choiceIncome) // Ensure non-negative
+      choiceIncome: Math.max(0, choiceIncome), // Ensure non-negative
     });
   });
 
@@ -58,7 +65,7 @@ export default function FinalIncomeDisplay() {
         pension: 0,
         pensionUplift: 0,
         lifetimeIncome: 0,
-        choiceIncome: 0
+        choiceIncome: 0,
       }));
     }
     return RETIREMENT_INCOME_DATA;
@@ -109,11 +116,14 @@ export default function FinalIncomeDisplay() {
         </motion.div>
 
         <div className="w-full flex flex-col items-center">
-          <p className="text-lg text-muted-foreground mb-4">
-            Your income breakdown from age 67 to 95
-          </p>
-
           <div className="w-full max-w-7xl mx-auto h-[600px] bg-card border-2 border-border rounded-3xl p-6 relative">
+            {/* Chart Title */}
+            <div className="absolute top-4 left-0 right-0 text-center z-10">
+              <p className="text-lg font-semibold text-foreground">
+                Your Income Breakdown
+              </p>
+            </div>
+
             <div
               style={{
                 position: "absolute",
@@ -125,10 +135,15 @@ export default function FinalIncomeDisplay() {
             >
               <ResponsiveBar
                 data={chartData}
-                keys={["pension", "pensionUplift", "lifetimeIncome", "choiceIncome"]}
+                keys={[
+                  "pension",
+                  "pensionUplift",
+                  "lifetimeIncome",
+                  "choiceIncome",
+                ]}
                 indexBy="age"
                 groupMode="stacked"
-                margin={{ top: 20, right: 150, bottom: 60, left: 80 }}
+                margin={{ top: 100, right: 190, bottom: 60, left: 90 }}
                 padding={0.1}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}
@@ -169,29 +184,45 @@ export default function FinalIncomeDisplay() {
                 }}
                 tooltip={({ id, value, indexValue, data }) => (
                   <div className="bg-white px-3 py-2 shadow-lg rounded-lg border border-gray-200">
-                    <p className="font-semibold text-sm mb-2">Age {indexValue}</p>
+                    <p className="font-semibold text-sm mb-2">
+                      Age {indexValue}
+                    </p>
                     <div className="space-y-1">
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-xs">Choice Income:</span>
-                        <span className="text-sm font-bold">${data.choiceIncome?.toLocaleString("en-AU")}</span>
+                        <span className="text-sm font-bold">
+                          ${data.choiceIncome?.toLocaleString("en-AU")}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-xs">Lifetime Income:</span>
-                        <span className="text-sm font-bold">${data.lifetimeIncome?.toLocaleString("en-AU")}</span>
+                        <span className="text-sm font-bold">
+                          ${data.lifetimeIncome?.toLocaleString("en-AU")}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-xs">Pension Uplift:</span>
-                        <span className="text-sm font-bold">${data.pensionUplift?.toLocaleString("en-AU")}</span>
+                        <span className="text-sm font-bold">
+                          ${data.pensionUplift?.toLocaleString("en-AU")}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-xs">Age Pension:</span>
-                        <span className="text-sm font-bold">${data.pension?.toLocaleString("en-AU")}</span>
+                        <span className="text-sm font-bold">
+                          ${data.pension?.toLocaleString("en-AU")}
+                        </span>
                       </div>
                       <div className="border-t pt-1 mt-2">
                         <div className="flex items-center justify-between gap-4">
                           <span className="text-xs font-semibold">Total:</span>
                           <span className="text-sm font-bold text-orange-600">
-                            ${(data.choiceIncome + data.lifetimeIncome + data.pensionUplift + data.pension).toLocaleString("en-AU")}
+                            $
+                            {(
+                              data.choiceIncome +
+                              data.lifetimeIncome +
+                              data.pensionUplift +
+                              data.pension
+                            ).toLocaleString("en-AU")}
                           </span>
                         </div>
                       </div>
@@ -220,6 +251,11 @@ export default function FinalIncomeDisplay() {
                       strokeWidth: 1,
                     },
                   },
+                  text: {
+                    fontSize: 16,
+                    fontWeight: 400,
+                    fontFamily: '"Inter", sans-serif',
+                  },
                 }}
                 legends={[
                   {
@@ -245,10 +281,26 @@ export default function FinalIncomeDisplay() {
                       },
                     ],
                     data: [
-                      { id: "choiceIncome", label: "Choice Income", color: colors.choiceIncome },
-                      { id: "lifetimeIncome", label: "Lifetime Income", color: colors.lifetimeIncome },
-                      { id: "pensionUplift", label: "Pension Uplift", color: colors.pensionUplift },
-                      { id: "pension", label: "Age Pension", color: colors.pension },
+                      {
+                        id: "choiceIncome",
+                        label: "Choice Income",
+                        color: colors.choiceIncome,
+                      },
+                      {
+                        id: "lifetimeIncome",
+                        label: "Lifetime Income",
+                        color: colors.lifetimeIncome,
+                      },
+                      {
+                        id: "pensionUplift",
+                        label: "Pension Uplift",
+                        color: colors.pensionUplift,
+                      },
+                      {
+                        id: "pension",
+                        label: "Age Pension",
+                        color: colors.pension,
+                      },
                     ],
                   },
                 ]}
