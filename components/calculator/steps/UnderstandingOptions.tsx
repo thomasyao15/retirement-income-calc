@@ -106,7 +106,7 @@ export default function UnderstandingOptions() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.2 }}
-                style={{ width: "310px", minHeight: "300px" }}
+                style={{ width: "310px", minHeight: "380px" }}
               >
                 <div className="flex justify-center mb-3">
                   <Image

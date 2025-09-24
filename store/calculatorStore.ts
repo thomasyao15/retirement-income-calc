@@ -81,36 +81,13 @@ interface CalculatorState {
 }
 
 const initialState = {
-  personalInfo: {
-    age: 67,
-    gender: 'male' as const,
-    relationshipStatus: 'single',
-    retirementYears: 28,
-    expectedLongevity: 95,  // age 67 + 28 years
-    superBalance: 600000,
-    totalAssets: 100000
-  },
+  personalInfo: {},
   assets: {},
-  pensionData: {
-    homeOwnership: 'yes',
-    combinedIncome: 0
-  },
-  calculations: {
-    estimatedPension: 15000,
-    initialAssets: 500000,
-    adjustedAssets: 480000,
-    adjustedPensionAmount: 18000,
-    incomeIncreaseWithAS: 3000,
-    lifetimeIncome: 10000,
-    choiceIncome: 22000,
-    totalRetirementIncome: 50000,
-    safetyNetAmount: 28000,
-    pensionEligibility: 'partial' as const,
-    recommendedPreMix: 'C' as const
-  },
+  pensionData: {},
+  calculations: {},
   currentSection: 'personal' as const,
   completedSteps: [],
-  currentStepValid: true
+  currentStepValid: false
 }
 
 export const useCalculatorStore = create<CalculatorState>((set, get) => ({
