@@ -230,14 +230,6 @@ export default function AgePensionResult() {
               />
             </div>
           </div>
-
-          <p className="text-xl text-muted-foreground mt-6">
-            Your estimated Age Pension at {personalInfo.age || 67}:
-            <span className="font-bold text-2xl text-primary ml-2">
-              ${(calculations.estimatedPension || 0).toLocaleString("en-AU")}{" "}
-              per year
-            </span>
-          </p>
         </div>
 
         <motion.div
